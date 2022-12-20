@@ -23,7 +23,7 @@ const DivisionManagementTable = () => {
     // ** States
     const [currentPage, setCurrentPage] = useState(0)
     const [searchValue] = useState('')
-    const [filteredData] = useState(DIVISION_MOCK_DB)
+    const [filteredData] = useState([])
 
     // ** Function to handle Pagination
     const handlePagination = page => {

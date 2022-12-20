@@ -12,11 +12,35 @@ export const employeeTableHandler = () => {
             }
         },
         {
-            name: 'DESCRIPTION',
+            name: 'DOB',
             sortable: true,
             minWidth: '100px',
             selector: row => {
-                return row.description
+                return row.dob
+            }
+        },
+        {
+            name: 'GENDER',
+            sortable: true,
+            minWidth: '100px',
+            selector: row => {
+                return row?.gender
+            }
+        },
+        {
+            name: 'telephone No.',
+            sortable: true,
+            minWidth: '100px',
+            selector: row => {
+                return row.telNo
+            }
+        },
+        {
+            name: 'ADDRESS',
+            sortable: true,
+            minWidth: '100px',
+            selector: row => {
+                return row.address
             }
         },
         {

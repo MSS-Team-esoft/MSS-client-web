@@ -7,7 +7,7 @@ import {
     Row
 } from 'reactstrap'
 import {employeeTableHandler} from "./tableHandler"
-import {DIVISION_MOCK_DB} from "../../../DB/DB"
+import {EMPLOYEE_MOCK_DB} from "../../../DB/DB"
 
 const BootstrapCheckbox = forwardRef((props, ref) => (
     <div className='form-check'>
@@ -23,7 +23,7 @@ const EmployeeManagementTable = () => {
     // ** States
     const [currentPage, setCurrentPage] = useState(0)
     const [searchValue] = useState('')
-    const [filteredData] = useState(DIVISION_MOCK_DB)
+    const [filteredData] = useState([])
 
     // ** Function to handle Pagination
     const handlePagination = page => {
@@ -37,7 +37,7 @@ const EmployeeManagementTable = () => {
             nextLabel=''
             forcePage={currentPage}
             onPageChange={page => handlePagination(page)}
-            pageCount={searchValue.length ? Math.ceil(filteredData.length / 10) : Math.ceil(DIVISION_MOCK_DB.length / 10) || 1}
+            pageCount={searchValue.length ? Math.ceil(filteredData.length / 10) : Math.ceil(EMPLOYEE_MOCK_DB.length / 10) || 1}
             breakLabel='...'
             pageRangeDisplayed={2}
             marginPagesDisplayed={2}
@@ -68,7 +68,7 @@ const EmployeeManagementTable = () => {
                         sortIcon={<ChevronDown size={10}/>}
                         paginationDefaultPage={currentPage + 1}
                         paginationComponent={CustomPagination}
-                        data={DIVISION_MOCK_DB}
+                        data={EMPLOYEE_MOCK_DB}
                         onSelectedRowsChange={onChangeHandle}
                     />
                 </div>
