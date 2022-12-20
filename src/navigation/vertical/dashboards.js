@@ -26,7 +26,7 @@ export default [
     },
     {
         id: 'inventoryManagement',
-        title: 'Inventory Management',
+        title: 'Inventory',
         icon: <Tool size={12}/>,
         children: [
             {
