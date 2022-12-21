@@ -21,6 +21,10 @@ const DashboardRoutes = [
   {
     path: '/inventory/distribution',
     component: lazy(() => import('../../custom-views/MotherDistributionManagementView/MotherDistributionManagementView'))
+  },
+  {
+    path: '/inventory/tracking',
+    component: lazy(() => import('../../custom-views/StockTrackingView/StockTrackingView'))
   }
 ]
 
