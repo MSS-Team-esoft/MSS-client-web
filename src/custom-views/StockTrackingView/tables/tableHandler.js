@@ -1,6 +1,20 @@
-import { Edit, Trash2 } from "react-feather"
+import {Badge} from "reactstrap"
 
 export const trackingTableHandler = () => {
+
+    const handleTrackState = (qty, warning, crit) => {
+
+        console.log(qty)
+        console.log(warning)
+        console.log(crit)
+        console.log(qty <= warning && qty > crit)
+        console.log('')
+
+        if (qty > warning) return <Badge color='light-success'>good</Badge>
+        else if (qty <= warning && qty > crit) return <Badge color='light-warning'>warning</Badge>
+
+        return <Badge color='light-danger'>critical</Badge>
+    }
 
     return  [
         {
@@ -8,53 +22,47 @@ export const trackingTableHandler = () => {
             sortable: true,
             minWidth: '100px',
             selector: row => {
-                return row?.name
+                return row?.item_name
             }
         },
         {
-            name: 'DOB',
+            name: 'SERIAL NUMBER',
             sortable: true,
             minWidth: '100px',
             selector: row => {
-                return row.dob
+                return row.serial_number
             }
         },
         {
-            name: 'GENDER',
+            name: 'QUANTITY',
             sortable: true,
             minWidth: '100px',
             selector: row => {
-                return row?.gender
+                return `${row?.quantity} ${row?.unit}`
             }
         },
         {
-            name: 'telephone No.',
+            name: 'CRITICAL LEVEL',
             sortable: true,
             minWidth: '100px',
             selector: row => {
-                return row.telNo
+                return row.track_level
             }
         },
         {
-            name: 'ADDRESS',
+            name: 'WARNING LEVEL',
             sortable: true,
             minWidth: '100px',
             selector: row => {
-                return row.address
+                return row.warning_level
             }
         },
         {
-            name: 'ACTIONS',
+            name: 'ITEM STATUS',
             sortable: true,
             minWidth: '100px',
-            selector: () => {
-                return <div>
-                    <button className='btn clickable'><Edit size={15}/></button>
-                    <button
-                        className='btn clickable'>
-                        <Trash2  size={15} color='crimson'/>
-                    </button>
-                </div>
+            selector: (row) => {
+                return handleTrackState(row?.quantity, row.warning_level, row.track_level)
             }
         }
     ]

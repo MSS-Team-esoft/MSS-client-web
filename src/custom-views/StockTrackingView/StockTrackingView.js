@@ -2,6 +2,7 @@ import {Card, CardBody, CardFooter, CardHeader, Col, Row} from "reactstrap"
 import {Bar, CartesianGrid, ResponsiveContainer, XAxis, YAxis, BarChart, Legend} from "recharts"
 import {ITEM_LEVEL_CHART} from "../../DB/CHART_DB"
 import {Activity, AlertTriangle, Check} from "react-feather"
+import TrackingTable from "./tables/TrackingTable"
 
 const StockTrackingView = () => {
 
@@ -80,6 +81,9 @@ const StockTrackingView = () => {
                     </Col>
                 </Row>
             </div>
+        </Row>
+        <Row className='mt-2'>
+            <TrackingTable />
         </Row>
     </div>
 }
