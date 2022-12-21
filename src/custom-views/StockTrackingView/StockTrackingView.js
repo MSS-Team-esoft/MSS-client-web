@@ -4,8 +4,11 @@ import {ITEM_LEVEL_CHART} from "../../DB/CHART_DB"
 import {Activity, AlertTriangle, Check} from "react-feather"
 import TrackingTable from "./tables/TrackingTable"
 import Select from "react-select"
+import {useState} from "react"
 
 const StockTrackingView = () => {
+
+    const [division, setDivision] = useState()
 
     return <div>
         <Row>
@@ -92,12 +95,18 @@ const StockTrackingView = () => {
                 <Row className='mt-2'>
                     <Col lg={3}>
                         <label className='mb-1'>Select a division to see the details</label>
-                        <Select />
+                        <Select
+                            onChange={e => setDivision(e.value)}
+                        />
                     </Col>
                 </Row>
-                <Row className='mt-2'>
-                    <TrackingTable />
-                </Row>
+                <div className='mt-2 d-center'>
+                    {
+                        division ? <TrackingTable /> : <i className='font-large-1 text-grey f-Staatliches'>
+                            SELECT A DIVISION TO GET STOCKS
+                        </i>
+                    }
+                </div>
             </CardBody>
         </Card>
     </div>
