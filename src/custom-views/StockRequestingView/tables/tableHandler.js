@@ -1,6 +1,7 @@
 import {Badge} from "reactstrap"
+import {Edit, Trash2} from "react-feather"
 
-export const trackingTableHandler = () => {
+export const divisionStockTableHandler = () => {
 
     const handleTrackState = (qty, warning, crit) => {
 
@@ -57,6 +58,20 @@ export const trackingTableHandler = () => {
             minWidth: '100px',
             selector: (row) => {
                 return handleTrackState(row?.quantity, row.warning_level, row.track_level)
+            }
+        },
+        {
+            name: 'ACTIONS',
+            sortable: true,
+            minWidth: '100px',
+            selector: () => {
+                return <div>
+                    <button className='btn clickable'><Edit size={15}/></button>
+                    <button
+                        className='btn clickable'>
+                        <Trash2  size={15} color='crimson'/>
+                    </button>
+                </div>
             }
         }
     ]
