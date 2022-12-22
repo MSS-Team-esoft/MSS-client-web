@@ -41,3 +41,10 @@ export const ITEMS_MOCK_DB = [
         warning_level: 45
     }
 ]
+
+export const ITEM_DROPDOWN = [
+    {
+        label: "Bear locks",
+        value: "1234"
+    }
+]
