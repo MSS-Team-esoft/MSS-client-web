@@ -19,7 +19,7 @@ const InventoryManagementView = () => {
     return <div>
         <Card>
             <CardHeader className='p-1 m-0 bg-gradient-primary font-large-1 f-Staatliches'>
-                Manage Employees
+                Manage Division Stock
             </CardHeader>
             <CardBody className='pt-2'>
                 <Form onSubmit={formik.handleSubmit}>
@@ -78,7 +78,7 @@ const InventoryManagementView = () => {
         </Card>
         <Card className='mt-2'>
             <CardHeader className='p-1 m-0 font-large-1 f-Staatliches'>
-                EMPLOYEES
+                STOCK
             </CardHeader>
             <CardBody>
                 <EmployeeManagementTable/>

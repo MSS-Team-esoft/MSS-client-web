@@ -52,6 +52,12 @@ export default [
                 title: 'Stock Requests',
                 icon: <Circle />,
                 navLink: '/inventory/requests'
+            },
+            {
+                id: 'requestingStock',
+                title: 'Request Stocks',
+                icon: <Circle />,
+                navLink: '/inventory/request/stocks'
             }
         ]
     }
