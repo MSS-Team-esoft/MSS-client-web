@@ -33,6 +33,10 @@ const DashboardRoutes = [
   {
     path: '/inventory/request/stocks',
     component: lazy(() => import('../../custom-views/StockRequestingView/StockRequestingView'))
+  },
+  {
+    path: '/income-report',
+    component: lazy(() => import('../../custom-views/IncomeReportView/IncomeReportModuleView'))
   }
 ]
 

@@ -1,29 +1,10 @@
 // ** Icons Import
 import {
-    Circle,
+    Circle, DollarSign,
     Settings, Tool
 } from 'react-feather'
 
 export default [
-    {
-        id: 'settings',
-        title: 'Settings',
-        icon: <Settings size={12}/>,
-        children: [
-            {
-                id: 'divisions',
-                title: 'Manage Divisions',
-                icon: <Circle />,
-                navLink: '/divisions/manage'
-            },
-            {
-                id: 'employee',
-                title: 'Manage Employees',
-                icon: <Circle />,
-                navLink: '/employee/manage'
-            }
-        ]
-    },
     {
         id: 'inventoryManagement',
         title: 'Inventory',
@@ -58,6 +39,31 @@ export default [
                 title: 'Request Stocks',
                 icon: <Circle />,
                 navLink: '/inventory/request/stocks'
+            }
+        ]
+    },
+    {
+        id: 'incomeReport',
+        title: 'Income Manage',
+        icon: <DollarSign size={12}/>,
+        navLink: '/income-report'
+    },
+    {
+        id: 'settings',
+        title: 'Settings',
+        icon: <Settings size={12}/>,
+        children: [
+            {
+                id: 'divisions',
+                title: 'Manage Divisions',
+                icon: <Circle />,
+                navLink: '/divisions/manage'
+            },
+            {
+                id: 'employee',
+                title: 'Manage Employees',
+                icon: <Circle />,
+                navLink: '/employee/manage'
             }
         ]
     }

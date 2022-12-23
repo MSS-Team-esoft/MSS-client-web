@@ -48,3 +48,20 @@ export const ITEM_DROPDOWN = [
         value: "1234"
     }
 ]
+
+export const INCOME_LOGS_MOCK_DB = [
+    {
+        description: "10 lock barrels",
+        amount: 100000,
+        date: '2022.02.01',
+        createdAt: '2022.02.02',
+        updatedAt: '2022.03.05'
+    },
+    {
+        description: "10 lock barrels",
+        amount: 100000,
+        date: '2022.02.01',
+        createdAt: '2022.02.02',
+        updatedAt: '2022.03.05'
+    }
+]
