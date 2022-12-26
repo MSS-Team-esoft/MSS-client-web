@@ -1,3 +1,4 @@
+import {combineReducers} from "@reduxjs/toolkit"
 // ** Reducers Imports
 import navbar from './navbar'
 import layout from './layout'
@@ -11,23 +12,22 @@ import calendar from '@src/views/apps/calendar/store'
 import ecommerce from '@src/views/apps/ecommerce/store'
 import dataTables from '@src/views/tables/data-tables/store'
 import permissions from '@src/views/apps/roles-permissions/store'
-import loginReducer from "../views/pages/authentication/redux/reducer"
-import {combineReducers} from "redux"
+import authenticationReducer from "@src/views/pages/authentication/slice/authenticationSlice"
 
 const rootReducer = combineReducers({
+  authenticationReducer,
+  navbar,
+  layout,
   auth,
   todo,
   chat,
-  email,
   users,
-  navbar,
-  layout,
+  email,
   invoice,
   calendar,
   ecommerce,
   dataTables,
-  permissions,
-  loginReducer
+  permissions
 })
 
 export default rootReducer

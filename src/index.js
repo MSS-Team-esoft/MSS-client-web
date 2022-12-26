@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 
 // ** Redux Imports
 import { Provider } from 'react-redux'
-import configureStore  from './redux/store'
+import store from './redux/store'
 
 // ** Intl, CASL & ThemeColors Context
 import ability from './configs/acl/ability'
@@ -45,7 +45,7 @@ import * as serviceWorker from './serviceWorker'
 
 // ** Lazy load app
 const LazyApp = lazy(() => import('./App'))
-const store = configureStore()
+
 
 ReactDOM.render(
   <Provider store={store}>
