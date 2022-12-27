@@ -41,6 +41,10 @@ const DashboardRoutes = [
   {
     path: '/work-monitoring-dashboard',
     component: lazy(() => import('../../custom-views/WorkMonitoringDashboard/WorkMonitoringView'))
+  },
+  {
+    path: '/work-monitoring/unit-view',
+    component: lazy(() => import('../../custom-views/WorkMonitoringUnitView/WorkMonitoringUnitView'))
   }
 ]
 
