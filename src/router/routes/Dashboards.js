@@ -37,6 +37,10 @@ const DashboardRoutes = [
   {
     path: '/income-report',
     component: lazy(() => import('../../custom-views/IncomeReportView/IncomeReportModuleView'))
+  },
+  {
+    path: '/work-monitoring-dashboard',
+    component: lazy(() => import('../../custom-views/WorkMonitoringDashboard/WorkMonitoringView'))
   }
 ]
 
