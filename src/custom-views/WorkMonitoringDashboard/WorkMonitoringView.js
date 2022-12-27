@@ -8,7 +8,9 @@ const WorkMonitoringView = () => {
 
     const routeToUnit = (id) => {
         history.push('/work-monitoring/unit-view', {
-            id
+            data: {
+                id
+            }
         })
     }
 
