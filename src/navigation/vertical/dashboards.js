@@ -1,6 +1,6 @@
 // ** Icons Import
 import {
-    Circle, DollarSign,
+    Circle, CreditCard, DollarSign,
     Settings, Tool
 } from 'react-feather'
 
@@ -47,6 +47,12 @@ export default [
         title: 'Income Manage',
         icon: <DollarSign size={12}/>,
         navLink: '/income-report'
+    },
+    {
+        id: 'workMonitoringDashboard',
+        title: 'Work Monitoring Dashboard',
+        icon: <CreditCard size={12}/>,
+        navLink: '/work-monitoring-dashboard'
     },
     {
         id: 'settings',
