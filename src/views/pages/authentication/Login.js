@@ -34,9 +34,9 @@ import {Row, Col, Form, Input, Label, Alert, Button, CardText, CardTitle, Uncont
 
 // ** Styles
 import '@styles/react/pages/page-authentication.scss'
-import {loginListen} from "./redux/actions"
 
 import logo from "../../../assets/custom_images/logo.png"
+import {authenticationActions} from "./slice/authenticationSlice"
 
 const ToastContent = ({name, role}) => (
     <Fragment>
@@ -76,7 +76,7 @@ const Login = () => {
 
     // eslint-disable-next-line no-unused-vars
     const onSubmit = data => {
-        dispatch(loginListen({email: data.loginEmail, password: data.password}, history))
+        dispatch(authenticationActions.signIn({email: data.loginEmail, password: data.password}, history))
         if (Object.values(data).every(field => field.length > 0)) {
             useJwt
                 .login({email: "admin@demo.com", password: "admin"})
