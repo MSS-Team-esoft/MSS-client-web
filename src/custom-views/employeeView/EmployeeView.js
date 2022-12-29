@@ -26,7 +26,7 @@ const EmployeeView = () => {
                 <Form onSubmit={formik.handleSubmit}>
                     <Row>
                         <Col lg={4}>
-                            <Label htmlFor='name' className='text-medium'>Full Name</Label>
+                            <Label htmlFor='name' className='text-small-extra'>Full Name</Label>
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -35,7 +35,7 @@ const EmployeeView = () => {
                                 id='name' placeholder='Enter your name'/>
                         </Col>
                         <Col lg={3}>
-                            <Label htmlFor='dob' className='text-medium'>Date of birth</Label>
+                            <Label htmlFor='dob' className='text-small-extra'>Date of birth</Label>
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -44,7 +44,7 @@ const EmployeeView = () => {
                                 type='date' id='dob' placeholder='Enter description'/>
                         </Col>
                         <Col lg={3}>
-                            <Label htmlFor='telNo' className='text-medium'>telephone no.</Label>
+                            <Label htmlFor='telNo' className='text-small-extra'>telephone no.</Label>
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -55,7 +55,7 @@ const EmployeeView = () => {
                     </Row>
                     <Row className='mt-4'>
                         <Col>
-                            <Label htmlFor='address' className='text-medium'>Permanent address</Label>
+                            <Label htmlFor='address' className='text-small-extra'>Permanent address</Label>
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}

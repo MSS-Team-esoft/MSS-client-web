@@ -24,11 +24,11 @@ const MotherDistributionManagementView = () => {
                 <Form onSubmit={formik.handleSubmit}>
                     <Row>
                         <Col lg={4}>
-                            <Label className='text-medium'>Select item</Label>
+                            <Label className='text-small-extra'>Select item</Label>
                             <Select />
                         </Col>
                         <Col lg={4}>
-                            <Label htmlFor='quantity' className='text-medium'>Quantity</Label>
+                            <Label htmlFor='quantity' className='text-small-extra'>Quantity</Label>
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -37,7 +37,7 @@ const MotherDistributionManagementView = () => {
                             />
                         </Col>
                         <Col lg={4}>
-                            <Label className='text-medium'>Select division</Label>
+                            <Label className='text-small-extra'>Select division</Label>
                             <Select />
                         </Col>
                         <div className='d-flex justify-content-end w-100 mt-2'>

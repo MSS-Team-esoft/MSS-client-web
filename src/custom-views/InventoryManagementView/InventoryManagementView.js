@@ -1,6 +1,6 @@
 import {Card, CardBody, CardHeader, Col, Form, Input, Label, Row} from "reactstrap"
-import EmployeeManagementTable from "../employeeView/table/EmployeeManagementTable"
 import {useFormik} from "formik"
+import InventorManagementTable from "./table/InventoryManagementTable"
 
 const InventoryManagementView = () => {
 
@@ -25,7 +25,7 @@ const InventoryManagementView = () => {
                 <Form onSubmit={formik.handleSubmit}>
                     <Row>
                         <Col lg={3}>
-                            <Label htmlFor='name' className='text-medium'>Item name</Label>
+                            <Label htmlFor='name' className='text-small-extra'>Item name</Label>
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -34,7 +34,7 @@ const InventoryManagementView = () => {
                                 id='name' placeholder='Enter your name'/>
                         </Col>
                         <Col lg={3}>
-                            <Label htmlFor='serial' className='text-medium'>Serial Number</Label>
+                            <Label htmlFor='serial' className='text-small-extra'>Serial Number</Label>
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -43,7 +43,7 @@ const InventoryManagementView = () => {
                                 type='text' id='serial' placeholder='Enter the serial'/>
                         </Col>
                         <Col lg={2}>
-                            <Label htmlFor='quantity' className='text-medium'>Quantity</Label>
+                            <Label htmlFor='quantity' className='text-small-extra'>Quantity</Label>
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -52,7 +52,7 @@ const InventoryManagementView = () => {
                                 type='number' id='quantity' />
                         </Col>
                         <Col lg={1}>
-                            <Label htmlFor='telNo' className='text-medium'>Unit</Label>
+                            <Label htmlFor='telNo' className='text-small-extra'>Unit</Label>
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -61,7 +61,7 @@ const InventoryManagementView = () => {
                                 type='number' id='quantity' />
                         </Col>
                         <Col lg={3}>
-                            <Label htmlFor='warningLevel' className='text-medium'>Warning level</Label>
+                            <Label htmlFor='warningLevel' className='text-small-extra'>Warning level</Label>
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -81,7 +81,7 @@ const InventoryManagementView = () => {
                 STOCK
             </CardHeader>
             <CardBody>
-                <EmployeeManagementTable/>
+                <InventorManagementTable/>
             </CardBody>
         </Card>
     </div>

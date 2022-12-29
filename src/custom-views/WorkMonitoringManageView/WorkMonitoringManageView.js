@@ -1,13 +1,13 @@
-import UnitCard from "../../components/WorkMonitoringDashboard/UnitCard"
-import {Col} from "reactstrap"
 import {useHistory} from "react-router-dom"
+import {Col} from "reactstrap"
+import UnitCard from "../../components/WorkMonitoringDashboard/UnitCard"
 
-const WorkMonitoringView = () => {
+const WorkMonitoringManageView = () => {
 
     const history = useHistory()
 
     const routeToUnit = (id) => {
-        history.push('/work-monitoring/unit-view', {
+        history.push('/work-monitoring/task/create-view', {
             data: {
                 id
             }
@@ -15,7 +15,7 @@ const WorkMonitoringView = () => {
     }
 
     return <div>
-        <h1 className='f-Staatliches font-large-1'>Work Monitoring Module</h1>
+        <h1 className='f-Staatliches font-large-1'>Task Handle Module</h1>
         <p className='mt-3 text-primary'>*Select an unit to proceed</p>
         <div className='d-flex gap-2 mt-2'>
             <Col onClick={() => routeToUnit(1)} lg={2}><UnitCard name='Unit 01'/></Col>
@@ -23,4 +23,4 @@ const WorkMonitoringView = () => {
     </div>
 }
 
-export default WorkMonitoringView
+export default WorkMonitoringManageView

@@ -29,7 +29,7 @@ const StockRequestingView = () => {
                 <Form onSubmit={formik.handleSubmit} onReset={cleanState}>
                     <Row>
                         <Col lg={3}>
-                            <Label className='text-medium'>Select Item</Label>
+                            <Label className='text-small-extra'>Select Item</Label>
                             <Select options={ITEM_DROPDOWN} name='item' id='item' onChange={e => {
                                 formik.setValues({
                                     ...formik.values,
@@ -38,7 +38,7 @@ const StockRequestingView = () => {
                             }}/>
                         </Col>
                         <Col lg={3}>
-                            <Label htmlFor='quantity' className='text-medium'>Enter quantity</Label>
+                            <Label htmlFor='quantity' className='text-small-extra'>Enter quantity</Label>
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -50,7 +50,7 @@ const StockRequestingView = () => {
                     </Row>
                     <Row className='mt-2'>
                         <Col>
-                            <Label className='text-medium'>Title</Label>
+                            <Label className='text-small-extra'>Title</Label>
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -62,7 +62,7 @@ const StockRequestingView = () => {
                     </Row>
                     <Row className='mt-2'>
                         <Col>
-                            <Label htmlFor='description' className='text-medium'>Description</Label>
+                            <Label htmlFor='description' className='text-small-extra'>Description</Label>
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}

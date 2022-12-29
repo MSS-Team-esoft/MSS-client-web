@@ -11,11 +11,11 @@ const DivisionsView = () => {
             <CardBody className='pt-2'>
                 <Row>
                     <Col lg={4}>
-                        <Label htmlFor='divisionName' className='text-medium'>Division Name</Label>
+                        <Label htmlFor='divisionName' className='text-small-extra'>Division Name</Label>
                         <Input id='divisionName' placeholder='Enter division name'/>
                     </Col>
                     <Col lg={8}>
-                        <Label htmlFor='divisionDescription' className='text-medium'>Description</Label>
+                        <Label htmlFor='divisionDescription' className='text-small-extra'>Description</Label>
                         <Input id='divisionDescription' placeholder='Enter description'/>
                     </Col>
                 </Row>
