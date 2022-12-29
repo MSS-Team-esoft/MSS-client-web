@@ -49,10 +49,23 @@ export default [
         navLink: '/income-report'
     },
     {
-        id: 'workMonitoringDashboard',
-        title: 'Work Monitoring Dashboard',
+        id: 'workMonitoringDashboardParent',
+        title: 'Work Monitor',
         icon: <CreditCard size={12}/>,
-        navLink: '/work-monitoring-dashboard'
+        children: [
+            {
+                id: 'workMonitoringDashboard',
+                title: 'Board',
+                icon: <Circle size={12}/>,
+                navLink: '/work-monitoring-dashboard'
+            },
+            {
+                id: 'workMonitoringManage',
+                title: 'Manage Tasks',
+                icon: <Circle size={12}/>,
+                navLink: '/work-monitoring/task-manage'
+            }
+        ]
     },
     {
         id: 'settings',
