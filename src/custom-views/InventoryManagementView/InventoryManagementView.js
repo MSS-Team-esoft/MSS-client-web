@@ -1,6 +1,6 @@
 import {Card, CardBody, CardHeader, Col, Form, Input, Label, Row} from "reactstrap"
-import EmployeeManagementTable from "../employeeView/table/EmployeeManagementTable"
 import {useFormik} from "formik"
+import InventorManagementTable from "./table/InventoryManagementTable"
 
 const InventoryManagementView = () => {
 
@@ -81,7 +81,7 @@ const InventoryManagementView = () => {
                 STOCK
             </CardHeader>
             <CardBody>
-                <EmployeeManagementTable/>
+                <InventorManagementTable/>
             </CardBody>
         </Card>
     </div>

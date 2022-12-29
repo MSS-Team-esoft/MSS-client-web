@@ -1,5 +1,6 @@
-import {Badge, Card, CardBody, CardFooter, Modal, ModalBody, ModalHeader} from "reactstrap"
+import {Badge, Card, CardBody, CardFooter, Col, Modal, ModalBody, ModalHeader, Row} from "reactstrap"
 import {useState} from "react"
+import InventorManagementTable from "./table/table/InventoryManagementTable"
 
 const WorkMonitoringCard = () => {
 
@@ -26,9 +27,27 @@ const WorkMonitoringCard = () => {
         {/*---------------------*/}
         <Modal size="lg"
                className='modal-dialog-centered' isOpen={open} toggle={() => setOpen(!open)} backdrop={3}>
-            <ModalHeader toggle={() => setOpen(!open)}>Modal title</ModalHeader>
-            <ModalBody>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <ModalHeader toggle={() => setOpen(!open)}>Unit 01: Work Task</ModalHeader>
+            <ModalBody className='pt-2'>
+                <div className='d-flex gap-2'>
+                    <p className='text-small text-grey'>Created At: 2022/02/12</p>
+                    <p className='text-small text-grey'>Deadline At: 2022/02/12</p>
+                </div>
+                <Row>
+                    <Col lg={10}>
+                        <h3>This is the title</h3>
+                    </Col>
+                    <Col lg={2} className='d-flex justify-content-center align-items-baseline'>
+                        <Badge color='light-primary clickable'>{'TODO'}</Badge>
+                    </Col>
+                </Row>
+                <p className='mt-2'>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the
+                    visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be
+                    used as a placeholder before final copy is available.</p>
+                <h4 className='text-medium text-decoration-underline mt-3'>Assigned Materials</h4>
+                <div className='mt-2'>
+                    <InventorManagementTable />
+                </div>
             </ModalBody>
         </Modal>
         {/*---------------------*/}
