@@ -8,7 +8,7 @@ const WorkMonitoringUnitView = () => {
         <Row className='mt-2'>
             <Col lg={4}>
                 <Card className='bg-light-grey'>
-                    <CardHeader className='font-bold text-medium text-primary'>TODO</CardHeader>
+                    <CardHeader className='font-bold text-medium text-primary'>{'TODO'}</CardHeader>
                     <CardBody>
                         <WorkMonitoringCard />
                     </CardBody>

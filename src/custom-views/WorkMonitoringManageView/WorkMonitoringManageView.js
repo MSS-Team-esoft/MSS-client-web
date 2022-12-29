@@ -7,7 +7,7 @@ const WorkMonitoringManageView = () => {
     const history = useHistory()
 
     const routeToUnit = (id) => {
-        history.push('/work-monitoring/unit-view', {
+        history.push('/work-monitoring/task/create-view', {
             data: {
                 id
             }
