@@ -1,5 +1,5 @@
 import {Card, CardBody, CardFooter, CardHeader, Col, Input, Label, Row} from "reactstrap"
-import {Activity, AlertTriangle, Check, Upload} from "react-feather"
+import {Activity, AlertTriangle, Check, DollarSign, Dribbble, Star, Target, Upload} from "react-feather"
 import IncomeReportTable from "./table/IncomeReportTable"
 import {useState} from "react"
 import IncomeReportChart from "../../components/IncomerReportView/IncomeReportChart"
@@ -16,11 +16,11 @@ const IncomeReportModuleView = () => {
                     <Card style={{height: '40vh'}}>
                         <CardHeader className='text-medium font-bold'>Total income this year</CardHeader>
                         <CardBody className='d-center flex-column'>
-                            <div>
-                                <Check size={100} color='rgba(46, 213, 115,1.0)'/>
+                            <div className='mb-1'>
+                                <DollarSign size={70} color='rgba(46, 213, 115,1.0)'/>
                             </div>
                             <div>
-                                <b className='text-large text-success'>20 ITEMS</b>
+                                <b className='text-large text-success'>$ 20000/=</b>
                             </div>
                         </CardBody>
                         <CardFooter className='d-center text-grey'>
@@ -33,11 +33,11 @@ const IncomeReportModuleView = () => {
                     <Card style={{height: '40vh'}}>
                         <CardHeader className='text-medium font-bold'>This month income</CardHeader>
                         <CardBody className='d-center flex-column'>
-                            <div>
-                                <AlertTriangle size={100} color='#fbc531'/>
+                            <div className='mb-1'>
+                                <Target size={70} color='#fbc531'/>
                             </div>
                             <div>
-                                <b className='text-large text-warning'>50 ITEMS</b>
+                                <b className='text-large text-warning'>$ 18000/=</b>
                             </div>
                         </CardBody>
                         <CardFooter className='d-center text-grey'>
@@ -50,11 +50,11 @@ const IncomeReportModuleView = () => {
                     <Card style={{height: '40vh'}}>
                         <CardHeader className='text-medium font-bold'>Total sales this month</CardHeader>
                         <CardBody className='d-center flex-column'>
-                            <div>
-                                <Activity size={100} color='#eb4d4b'/>
+                            <div className='mb-1'>
+                                <Star size={70} color='#eb4d4b'/>
                             </div>
                             <div>
-                                <b className='text-large text-danger'>40 ITEMS</b>
+                                <b className='text-large text-danger'>$ 55000/=</b>
                             </div>
                         </CardBody>
                         <CardFooter className='d-center text-grey'>

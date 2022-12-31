@@ -65,3 +65,19 @@ export const INCOME_LOGS_MOCK_DB = [
         updatedAt: '2022.03.05'
     }
 ]
+
+// Metric units options
+export const METRIC_UNITS = [
+    {
+        label: 'kg',
+        value: 'kg'
+    },
+    {
+        label: 'l',
+        value: 'l'
+    },
+    {
+        label: 'units',
+        value: 'units'
+    }
+]
