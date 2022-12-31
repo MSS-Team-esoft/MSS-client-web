@@ -3,7 +3,7 @@
 //Template config options
 const themeConfig = {
   app: {
-    appName: 'Lock Abouy',
+    appName: 'Lock Hood',
     appLogoImage: require('@src/assets/images/logo/logo.svg').default
   },
   layout: {

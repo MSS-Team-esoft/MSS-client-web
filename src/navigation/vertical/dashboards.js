@@ -63,7 +63,7 @@ export default [
                 id: 'workMonitoringManage',
                 title: 'Manage Tasks',
                 icon: <Circle size={12}/>,
-                navLink: '/work-monitoring/task-manage'
+                navLink: '/work-monitoring/task/create-view'
             }
         ]
     },
