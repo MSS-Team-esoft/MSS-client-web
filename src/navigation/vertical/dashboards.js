@@ -1,10 +1,16 @@
 // ** Icons Import
 import {
-    Circle, CreditCard, DollarSign,
+    Circle, CreditCard, DollarSign, Home,
     Settings, Tool
 } from 'react-feather'
 
 export default [
+    {
+        id: 'home',
+        title: 'Home',
+        icon: <Home size={12}/>,
+        navLink: '/dashboard'
+    },
     {
         id: 'inventoryManagement',
         title: 'Inventory',
@@ -74,9 +80,15 @@ export default [
         children: [
             {
                 id: 'divisions',
-                title: 'Manage Divisions',
+                title: 'Manage Departments',
                 icon: <Circle />,
                 navLink: '/divisions/manage'
+            },
+            {
+                id: 'workshops',
+                title: 'Manage Workshops',
+                icon: <Circle />,
+                navLink: '/workshops/manage'
             },
             {
                 id: 'employee',
