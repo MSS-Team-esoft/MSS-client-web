@@ -27,7 +27,7 @@ const WorkMonitoringCard = () => {
         {/*---------------------*/}
         <Modal size="lg"
                className='modal-dialog-centered' isOpen={open} toggle={() => setOpen(!open)} backdrop={3}>
-            <ModalHeader toggle={() => setOpen(!open)}>Unit 01: Work Task</ModalHeader>
+            <ModalHeader toggle={() => setOpen(!open)}>Jack Ryder's: Work Task</ModalHeader>
             <ModalBody className='pt-2'>
                 <div className='d-flex gap-2'>
                     <p className='text-small text-grey'>Created At: 2022/02/12</p>
