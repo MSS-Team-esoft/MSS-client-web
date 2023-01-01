@@ -5,7 +5,7 @@ import {Card, CardBody} from "reactstrap"
 const IncomeReportChart = () => {
 
     return <div>
-        <Card style={{height: '70vh'}}>
+        <Card style={{height: '64vh'}}>
             <CardBody>
                 <ResponsiveContainer>
                     <BarChart data={INCOME_CHART}>

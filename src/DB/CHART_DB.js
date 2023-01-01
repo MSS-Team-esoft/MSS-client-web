@@ -49,3 +49,26 @@ export const INCOME_CHART = [
         total: 1000900
     }
 ]
+
+export const STATS_CHART_MOCK = [
+    {
+        name: "January",
+        eff: 1200
+    },
+    {
+        name: "February",
+        eff: 3500
+    },
+    {
+        name: "March",
+        eff: 2500
+    },
+    {
+        name: "April",
+        eff: 3000
+    },
+    {
+        name: "June",
+        eff: 5000
+    }
+]

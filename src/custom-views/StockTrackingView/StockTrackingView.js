@@ -3,12 +3,8 @@ import {Bar, CartesianGrid, ResponsiveContainer, XAxis, YAxis, BarChart, Legend}
 import {ITEM_LEVEL_CHART} from "../../DB/CHART_DB"
 import {Activity, AlertTriangle, Check} from "react-feather"
 import TrackingTable from "./tables/TrackingTable"
-import Select from "react-select"
-import {useState} from "react"
 
 const StockTrackingView = () => {
-
-    const [division, setDivision] = useState()
 
     return <div>
         <Row>
@@ -89,26 +85,6 @@ const StockTrackingView = () => {
         <Row className='mt-2'>
             <TrackingTable />
         </Row>
-        <Card>
-            <CardHeader className='p-1 m-0 font-large-1 f-Staatliches'>DIVISION WISE DISTRIBUTION</CardHeader>
-            <CardBody>
-                <Row className='mt-2'>
-                    <Col lg={3}>
-                        <label className='mb-1'>Select a division to see the details</label>
-                        <Select
-                            onChange={e => setDivision(e.value)}
-                        />
-                    </Col>
-                </Row>
-                <div className='mt-2 d-center'>
-                    {
-                        division ? <TrackingTable /> : <i className='font-large-1 text-grey f-Staatliches'>
-                            SELECT A DIVISION TO GET STOCKS
-                        </i>
-                    }
-                </div>
-            </CardBody>
-        </Card>
     </div>
 }
 

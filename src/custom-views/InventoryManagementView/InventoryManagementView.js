@@ -1,6 +1,8 @@
 import {Card, CardBody, CardHeader, Col, Form, Input, Label, Row} from "reactstrap"
 import {useFormik} from "formik"
 import InventorManagementTable from "./table/InventoryManagementTable"
+import Select from "react-select"
+import {METRIC_UNITS} from "../../DB/DB"
 
 const InventoryManagementView = () => {
 
@@ -9,7 +11,8 @@ const InventoryManagementView = () => {
             name: '',
             serial: '',
             quantity: '',
-            warningLevel: 0
+            warningLevel: undefined,
+            criticalLevel: undefined
         },
         onSubmit: (values) => {
             console.log(values)
@@ -19,7 +22,7 @@ const InventoryManagementView = () => {
     return <div>
         <Card>
             <CardHeader className='p-1 m-0 bg-gradient-primary font-large-1 f-Staatliches'>
-                Manage Division Stock
+                Manage Stock
             </CardHeader>
             <CardBody className='pt-2'>
                 <Form onSubmit={formik.handleSubmit}>
@@ -33,7 +36,7 @@ const InventoryManagementView = () => {
                                 name='name'
                                 id='name' placeholder='Enter your name'/>
                         </Col>
-                        <Col lg={3}>
+                        <Col lg={2}>
                             <Label htmlFor='serial' className='text-small-extra'>Serial Number</Label>
                             <Input
                                 onChange={formik.handleChange}
@@ -42,32 +45,53 @@ const InventoryManagementView = () => {
                                 name='serial'
                                 type='text' id='serial' placeholder='Enter the serial'/>
                         </Col>
-                        <Col lg={2}>
+                        <Col lg={1}>
                             <Label htmlFor='quantity' className='text-small-extra'>Quantity</Label>
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.quantity}
                                 name='quantity'
-                                type='number' id='quantity' />
+                                type='number' id='quantity'
+                                min={1}
+                            />
                         </Col>
-                        <Col lg={1}>
+                        <Col lg={2}>
                             <Label htmlFor='telNo' className='text-small-extra'>Unit</Label>
-                            <Input
-                                onChange={formik.handleChange}
+                            <Select
+                                options={METRIC_UNITS}
+                                onChange={e => formik.setValues({
+                                    ...formik.values,
+                                    quantity: e.value
+                                })}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.quantity}
-                                name='telNo'
-                                type='number' id='quantity' />
+                                id='quantity'
+                            />
                         </Col>
-                        <Col lg={3}>
+                        <Col lg={2}>
                             <Label htmlFor='warningLevel' className='text-small-extra'>Warning level</Label>
                             <Input
+                                disabled={!formik.values.quantity}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.warningLevel}
                                 name='warningLevel'
-                                type='number' id='warningLevel' placeholder='Warning level'/>
+                                type='number' id='warningLevel' placeholder='Warning level'
+                                min={formik.values.quantity}
+                            />
+                        </Col>
+                        <Col lg={2}>
+                            <Label htmlFor='criticalLevel' className='text-small-extra'>Critical level</Label>
+                            <Input
+                                disabled={!formik.values.quantity}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.criticalLevel}
+                                name='criticalLevel'
+                                type='number' id='criticalLevel' placeholder='Critical level'
+                                min={formik.values.quantity}
+                            />
                         </Col>
                     </Row>
                     <div className='w-100 mt-2 d-flex justify-content-end'>
