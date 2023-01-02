@@ -8,7 +8,7 @@ const addItemAsync = async (data) => {
 
 export default function* callAddItemSaga({payload}) {
   try {
-    yield call(addItemAsync, payload.data)
+    yield call(addItemAsync, payload)
     yield put(inventoryActions.addItemSuccess())
   } catch (e) {
     console.error(e)

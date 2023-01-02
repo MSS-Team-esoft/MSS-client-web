@@ -7,7 +7,8 @@ import {
     Row
 } from 'reactstrap'
 import {workshopTableHandler} from "./tableHandler"
-import {DIVISION_MOCK_DB} from "../../../DB/DB"
+import {useSelector} from "react-redux"
+import {selectWorkshops} from "../slice/workshopSlice"
 
 const BootstrapCheckbox = forwardRef((props, ref) => (
     <div className='form-check'>
@@ -24,6 +25,7 @@ const WorkshopManagementTable = () => {
     const [currentPage, setCurrentPage] = useState(0)
     const [searchValue] = useState('')
     const [filteredData] = useState([])
+    const workshops = useSelector(selectWorkshops)
 
     // ** Function to handle Pagination
     const handlePagination = page => {
@@ -37,7 +39,7 @@ const WorkshopManagementTable = () => {
             nextLabel=''
             forcePage={currentPage}
             onPageChange={page => handlePagination(page)}
-            pageCount={searchValue.length ? Math.ceil(filteredData.length / 10) : Math.ceil(DIVISION_MOCK_DB.length / 10) || 1}
+            pageCount={searchValue.length ? Math.ceil(filteredData.length / 10) : Math.ceil(workshops.length / 10) || 1}
             breakLabel='...'
             pageRangeDisplayed={2}
             marginPagesDisplayed={2}
@@ -68,7 +70,7 @@ const WorkshopManagementTable = () => {
                         sortIcon={<ChevronDown size={10}/>}
                         paginationDefaultPage={currentPage + 1}
                         paginationComponent={CustomPagination}
-                        data={DIVISION_MOCK_DB}
+                        data={workshops}
                         onSelectedRowsChange={onChangeHandle}
                     />
                 </div>

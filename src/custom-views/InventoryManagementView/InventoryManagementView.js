@@ -3,19 +3,28 @@ import {useFormik} from "formik"
 import InventorManagementTable from "./table/InventoryManagementTable"
 import Select from "react-select"
 import {METRIC_UNITS} from "../../DB/DB"
+import {useDispatch} from "react-redux"
+import {inventoryActions} from "./slice/inventorySlice"
+import {useEffect} from "react"
 
 const InventoryManagementView = () => {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(inventoryActions.getItems())
+    }, [dispatch])
 
     const formik = useFormik({
         initialValues: {
-            name: '',
-            serial: '',
+            item_name: '',
+            serial_number: '',
             quantity: '',
-            warningLevel: undefined,
-            criticalLevel: undefined
+            unit: '',
+            warning_level: undefined,
+            critical_level: undefined
         },
         onSubmit: (values) => {
-            console.log(values)
+            dispatch(inventoryActions.addItem(values))
         }
     })
 
@@ -28,22 +37,25 @@ const InventoryManagementView = () => {
                 <Form onSubmit={formik.handleSubmit}>
                     <Row>
                         <Col lg={3}>
-                            <Label htmlFor='name' className='text-small-extra'>Item name</Label>
+                            <Label htmlFor='item_name' className='text-small-extra'>Item name</Label>
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                value={formik.values.name}
-                                name='name'
-                                id='name' placeholder='Enter your name'/>
+                                value={formik.values.item_name}
+                                name='item_name'
+                                id='item_name'
+                                placeholder='Enter item name'/>
                         </Col>
                         <Col lg={2}>
-                            <Label htmlFor='serial' className='text-small-extra'>Serial Number</Label>
+                            <Label htmlFor='serial_number' className='text-small-extra'>Serial Number</Label>
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                value={formik.values.serial}
-                                name='serial'
-                                type='text' id='serial' placeholder='Enter the serial'/>
+                                value={formik.values.serial_number}
+                                name='serial_number'
+                                type='text'
+                                id='serial_number'
+                                placeholder='Enter the serial'/>
                         </Col>
                         <Col lg={1}>
                             <Label htmlFor='quantity' className='text-small-extra'>Quantity</Label>
@@ -62,35 +74,36 @@ const InventoryManagementView = () => {
                                 options={METRIC_UNITS}
                                 onChange={e => formik.setValues({
                                     ...formik.values,
-                                    quantity: e.value
+                                    unit: e.value
                                 })}
                                 onBlur={formik.handleBlur}
-                                value={formik.values.quantity}
-                                id='quantity'
+                                value={formik.values.unit}
+                                id='unit'
+                                name='unit'
                             />
                         </Col>
                         <Col lg={2}>
-                            <Label htmlFor='warningLevel' className='text-small-extra'>Warning level</Label>
+                            <Label htmlFor='warning_level' className='text-small-extra'>Warning level</Label>
                             <Input
                                 disabled={!formik.values.quantity}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                value={formik.values.warningLevel}
-                                name='warningLevel'
-                                type='number' id='warningLevel' placeholder='Warning level'
-                                min={formik.values.quantity}
+                                value={formik.values.warning_level}
+                                name='warning_level'
+                                type='number' id='warning_level' placeholder='Warning level'
+                                // min={formik.values.quantity}
                             />
                         </Col>
                         <Col lg={2}>
-                            <Label htmlFor='criticalLevel' className='text-small-extra'>Critical level</Label>
+                            <Label htmlFor='critical_level' className='text-small-extra'>Critical level</Label>
                             <Input
                                 disabled={!formik.values.quantity}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                value={formik.values.criticalLevel}
-                                name='criticalLevel'
-                                type='number' id='criticalLevel' placeholder='Critical level'
-                                min={formik.values.quantity}
+                                value={formik.values.critical_level}
+                                name='critical_level'
+                                type='number' id='critical_level' placeholder='Critical level'
+                                // min={formik.values.quantity}
                             />
                         </Col>
                     </Row>

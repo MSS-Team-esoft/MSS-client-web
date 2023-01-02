@@ -9,6 +9,7 @@ import callGetStatisticsSaga from "./callGetStatisticsSaga"
 
 export default function* inventorySagas() {
   yield takeLatest(inventoryActions.getItems, callGetStockSaga)
+  yield takeLatest(inventoryActions.addItemSuccess, callGetStockSaga)
   yield takeLatest(inventoryActions.addItem, callAddItemSaga)
   yield takeLatest(inventoryActions.deleteItem, callDeleteItemSaga)
   yield takeLatest(inventoryActions.editItem, callEditItemSaga)

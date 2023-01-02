@@ -8,7 +8,7 @@ const addWorkshopAsync = async (data) => {
 
 export default function* callAddWorkshopSaga({payload}) {
   try {
-    yield call(addWorkshopAsync, payload.data)
+    yield call(addWorkshopAsync, payload)
     yield put(workshopActions.addWorkshopSuccess())
   } catch (e) {
     console.error(e)

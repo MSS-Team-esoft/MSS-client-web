@@ -8,7 +8,7 @@ const addDepartmentAsync = async (data) => {
 
 export default function* callAddDepartmentSaga({payload}) {
   try {
-    yield call(addDepartmentAsync, payload.data)
+    yield call(addDepartmentAsync, payload)
     yield put(departmentActions.addDepartmentSuccess())
   } catch (e) {
     console.error(e)
