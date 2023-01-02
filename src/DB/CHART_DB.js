@@ -31,22 +31,6 @@ export const INCOME_CHART = [
     {
         name: 'june',
         total: 230000
-    },
-    {
-        name: 'july',
-        total: 670000
-    },
-    {
-        name: 'august',
-        total: 540001
-    },
-    {
-        name: 'september',
-        total: 789000
-    },
-    {
-        name: 'october',
-        total: 1000900
     }
 ]
 
@@ -72,3 +56,12 @@ export const STATS_CHART_MOCK = [
         eff: 5000
     }
 ]
+
+
+export const request = {
+    ongoing: [
+        {
+
+        }
+    ]
+}
