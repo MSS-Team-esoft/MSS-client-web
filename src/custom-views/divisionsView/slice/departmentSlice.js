@@ -16,6 +16,9 @@ export const departmentSlice = createSlice({
     addDepartmentSuccess(state) {
       state.loading = false
     },
+    addDepartmentFailure(state) {
+      state.loading = false
+    },
     getDepartments(state) {
       state.loading = true
     },
@@ -23,16 +26,25 @@ export const departmentSlice = createSlice({
       state.loading = false
       state.department = action.payload
     },
+    getDepartmentsFailure(state) {
+      state.loading = false
+    },
     editDepartment(state) {
       state.loading = true
     },
     editDepartmentSuccess(state) {
       state.loading = false
     },
+    editDepartmentFailure(state) {
+      state.loading = false
+    },
     deleteDepartment(state) {
       state.loading = true
     },
     deleteDepartmentSuccess(state) {
+      state.loading = false
+    },
+    deleteDepartmentFailure(state) {
       state.loading = false
     }
   }

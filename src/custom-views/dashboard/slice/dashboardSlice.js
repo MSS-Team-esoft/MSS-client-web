@@ -20,6 +20,9 @@ export const dashboardSlice = createSlice({
       state.inventory = action.payload.inventory
       state.income = action.payload.income
     },
+    getDashboardDetailsFailure(state) {
+      state.loading = true
+    },
     getStockReport(state) {
       state.loading = true
     },
@@ -27,12 +30,18 @@ export const dashboardSlice = createSlice({
       state.loading = true
       state.stockReport = action.payload
     },
+    getStockReportFailure(state) {
+      state.loading = true
+    },
     getIncomeReport(state) {
       state.loading = true
     },
     saveIncomeReport(state, action) {
       state.loading = true
       state.incomeMovement = action.payload
+    },
+    getIncomeReportFailure(state) {
+      state.loading = true
     }
   }
 })

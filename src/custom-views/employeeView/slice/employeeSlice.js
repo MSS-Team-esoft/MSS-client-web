@@ -16,6 +16,9 @@ export const employeeSlice = createSlice({
     addEmployeeSuccess(state) {
       state.loading = false
     },
+    addEmployeeFailure(state) {
+      state.loading = false
+    },
     getEmployees(state) {
       state.loading = true
     },
@@ -23,10 +26,19 @@ export const employeeSlice = createSlice({
       state.loading = false
       state.employee = action.payload
     },
+    getEmployeeFailure(state) {
+      state.loading = false
+    },
     editEmployee(state) {
       state.loading = true
     },
     editEmployeeSuccess(state) {
+      state.loading = false
+    },
+    editEmployeeFailure(state) {
+      state.loading = false
+    },
+    deleteEmployeeFailure(state) {
       state.loading = false
     },
     deleteEmployee(state) {

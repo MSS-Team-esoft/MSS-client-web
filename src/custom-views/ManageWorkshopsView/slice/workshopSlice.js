@@ -16,6 +16,9 @@ export const workshopSlice = createSlice({
     addWorkshopSuccess(state) {
       state.loading = false
     },
+    addWorkshopFailure(state) {
+      state.loading = false
+    },
     getWorkshops(state) {
       state.loading = true
     },
@@ -23,10 +26,19 @@ export const workshopSlice = createSlice({
       state.loading = false
       state.workshop = action.payload
     },
+    getWorkshopFailure(state) {
+      state.loading = false
+    },
     editWorkshop(state) {
       state.loading = true
     },
     editWorkshopSuccess(state) {
+      state.loading = false
+    },
+    editWorkshopFailure(state) {
+      state.loading = false
+    },
+    deleteWorkshopFailure(state) {
       state.loading = false
     },
     deleteWorkshop(state) {

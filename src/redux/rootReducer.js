@@ -20,6 +20,9 @@ import employeeReducer from "@src/custom-views/employeeView/slice/employeeSlice"
 import distributionReducer from "@src/custom-views/MotherDistributionManagementView/slice/motherDistributionSlice"
 import requestReducer from "@src/custom-views/StockRequestsView/slice/requestSlice"
 import requestingReducer from "@src/custom-views/StockRequestingView/slice/requestingSlice"
+import incomeReportReducer from "@src/custom-views/IncomeReportView/slice/incomeReportSlice"
+import inventoryTrackingReducer from "@src/custom-views/StockTrackingView/slice/inventoryTrackingSlice"
+import createWorkReducer from "@src/custom-views/WorkCreateUnitView/slice/createWorkSlice"
 
 const rootReducer = combineReducers({
   authenticationReducer,
@@ -41,7 +44,10 @@ const rootReducer = combineReducers({
   employeeReducer,
   distributionReducer,
   requestReducer,
-  requestingReducer
+  requestingReducer,
+  incomeReportReducer,
+  inventoryTrackingReducer,
+  createWorkReducer
 })
 
 export default rootReducer

@@ -16,12 +16,18 @@ export const requestSlice = createSlice({
       state.loading = false
       state.request = action.payload
     },
+    getRequestsFailure(state) {
+      state.loading = true
+    },
     // eslint-disable-next-line no-unused-vars
     changeState(state, action) {
       state.loading = true
     },
     changeStateSuccess(state) {
       state.loading = false
+    },
+    changeStateFailure(state) {
+      state.loading = true
     }
   }
 })

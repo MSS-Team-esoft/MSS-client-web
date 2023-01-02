@@ -17,6 +17,9 @@ export const inventorySlice = createSlice({
     addItemSuccess(state) {
       state.loading = false
     },
+    addItemFailure(state) {
+      state.loading = false
+    },
     getItems(state) {
       state.loading = true
     },
@@ -24,10 +27,16 @@ export const inventorySlice = createSlice({
       state.loading = false
       state.inventory = action.payload
     },
+    getItemsFailure(state) {
+      state.loading = false
+    },
     editItem(state) {
       state.loading = true
     },
     editItemSuccess(state) {
+      state.loading = false
+    },
+    editItemFailure(state) {
       state.loading = false
     },
     deleteItem(state) {
@@ -36,12 +45,18 @@ export const inventorySlice = createSlice({
     deleteItemSuccess(state) {
       state.loading = false
     },
+    deleteItemFailure(state) {
+      state.loading = false
+    },
     getStock(state) {
       state.loading = true
     },
     saveStock(state, action) {
       state.loading = false
       state.stock = action.payload
+    },
+    getStockFailure(state) {
+      state.loading = false
     }
   }
 })
