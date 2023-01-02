@@ -104,12 +104,12 @@ const Dashboard = () => {
         <h1 className='f-Staatliches mb-3 mt-3'>Income Section</h1>
         <Row>
             <Col lg={3}>
-                <Card style={{height: '30vh'}}>
+                <Card style={{height: '25vh'}}>
                     <CardHeader className='text-medium font-bold'>Total income this Month</CardHeader>
                     <CardBody className='d-center flex-column'>
-                        <div className='mb-1'>
-                            <DollarSign size={25} color='rgba(46, 213, 115,1.0)'/>
-                        </div>
+                        {/*<div className='mb-1'>*/}
+                        {/*    <DollarSign size={25} color='rgba(46, 213, 115,1.0)'/>*/}
+                        {/*</div>*/}
                         <div>
                             <b style={{
                                 fontSize: 25
@@ -121,43 +121,39 @@ const Dashboard = () => {
                     </CardFooter>
                 </Card>
 
-                <Card style={{height: '30vh'}}>
+                <Card style={{height: '25vh'}}>
                     <CardHeader className='text-medium font-bold'>Total sales this month</CardHeader>
                     <CardBody className='d-center flex-column'>
-                        <div className='mb-1'>
-                            <Target size={25} color='#7468f0'/>
-                        </div>
+                        {/*<div className='mb-1'>*/}
+                        {/*    <Target size={25} color='#7468f0'/>*/}
+                        {/*</div>*/}
                         <div>
                             <b style={{
                                 fontSize: 25
-                            }} className='text-primary'>$ 20000/=</b>
+                            }} className='text-primary'>145</b>
                         </div>
                     </CardBody>
                     <CardFooter className='d-center text-grey'>
                         Based on the system uploaded sales
                     </CardFooter>
                 </Card>
-            </Col>
-            <Col lg={9}>
-                <IncomeReportChart />
-            </Col>
-            <Row>
-                <Col lg={3}>
+
                     <Card className='btn btn-gradient-primary'>
                         <CardBody className='d-center align-items-baseline'>
                             <p className='text-medium m-0 p-0'>Generate Stock Report</p>
                         </CardBody>
                     </Card>
-                </Col>
 
-                <Col lg={3}>
                     <Card className='btn btn-gradient-success'>
                         <CardBody className='d-center align-items-baseline'>
                             <p className='text-medium m-0 p-0'>Generate income movement</p>
                         </CardBody>
                     </Card>
-                </Col>
-            </Row>
+
+            </Col>
+            <Col lg={9}>
+                <IncomeReportChart />
+            </Col>
         </Row>
     </div>
 }
