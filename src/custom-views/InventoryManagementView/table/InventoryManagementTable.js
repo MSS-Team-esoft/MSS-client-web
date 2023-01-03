@@ -8,6 +8,8 @@ import {
 } from 'reactstrap'
 import {inventoryTableHandler} from "./tableHandler"
 import {ITEMS_MOCK_DB} from "../../../DB/DB"
+import {useSelector} from "react-redux"
+import {selectInventoryItems} from "../slice/inventorySlice"
 
 const BootstrapCheckbox = forwardRef((props, ref) => (
     <div className='form-check'>
@@ -24,6 +26,7 @@ const InventorManagementTable = () => {
     const [currentPage, setCurrentPage] = useState(0)
     const [searchValue] = useState('')
     const [filteredData] = useState([])
+    const stockItems = useSelector(selectInventoryItems)
 
     // ** Function to handle Pagination
     const handlePagination = page => {
@@ -68,7 +71,7 @@ const InventorManagementTable = () => {
                         sortIcon={<ChevronDown size={10}/>}
                         paginationDefaultPage={currentPage + 1}
                         paginationComponent={CustomPagination}
-                        data={ITEMS_MOCK_DB}
+                        data={stockItems}
                         onSelectedRowsChange={onChangeHandle}
                     />
                 </div>

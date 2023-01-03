@@ -7,7 +7,8 @@ import {
     Row
 } from 'reactstrap'
 import {divisionsTableHandler} from "./tableHandler"
-import {DIVISION_MOCK_DB} from "../../../DB/DB"
+import {useSelector} from "react-redux"
+import {selectDepartments} from "../slice/departmentSlice"
 
 const BootstrapCheckbox = forwardRef((props, ref) => (
     <div className='form-check'>
@@ -24,6 +25,7 @@ const DivisionManagementTable = () => {
     const [currentPage, setCurrentPage] = useState(0)
     const [searchValue] = useState('')
     const [filteredData] = useState([])
+    const departments = useSelector(selectDepartments)
 
     // ** Function to handle Pagination
     const handlePagination = page => {
@@ -37,7 +39,7 @@ const DivisionManagementTable = () => {
             nextLabel=''
             forcePage={currentPage}
             onPageChange={page => handlePagination(page)}
-            pageCount={searchValue.length ? Math.ceil(filteredData.length / 10) : Math.ceil(DIVISION_MOCK_DB.length / 10) || 1}
+            pageCount={searchValue.length ? Math.ceil(filteredData.length / 10) : Math.ceil(departments.length / 10) || 1}
             breakLabel='...'
             pageRangeDisplayed={2}
             marginPagesDisplayed={2}
@@ -68,7 +70,7 @@ const DivisionManagementTable = () => {
                         sortIcon={<ChevronDown size={10}/>}
                         paginationDefaultPage={currentPage + 1}
                         paginationComponent={CustomPagination}
-                        data={DIVISION_MOCK_DB}
+                        data={departments}
                         onSelectedRowsChange={onChangeHandle}
                     />
                 </div>

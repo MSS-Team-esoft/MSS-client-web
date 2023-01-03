@@ -1,8 +1,16 @@
 import {Button, Card, CardBody, CardHeader, Col, Form, Input, Label, Row} from "reactstrap"
 import EmployeeManagementTable from "./table/EmployeeManagementTable"
 import {useFormik} from "formik"
+import {useDispatch} from "react-redux"
+import {employeeActions} from "./slice/employeeSlice"
+import {useEffect} from "react"
 
 const EmployeeView = () => {
+    const dispatch = useDispatch()
+    
+    useEffect(() => {
+        dispatch(employeeActions.getEmployees())
+    }, [dispatch])
 
     const formik = useFormik({
         initialValues: {
@@ -13,7 +21,7 @@ const EmployeeView = () => {
             telNo: ''
         },
         onSubmit: (values) => {
-            console.log(values)
+            dispatch(employeeActions.addEmployee(values))
         }
     })
 
@@ -69,14 +77,14 @@ const EmployeeView = () => {
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                name='gender' id='male' value="male" type='checkbox'/>
+                                name='gender' id='male' value="male" type='radio'/>
                             <Label htmlFor='male' className='text-small-extra ml-1'>Male</Label>
                         </Col>
                         <Col lg={1}>
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                name='gender' id='female' value="male" type='checkbox'/>
+                                name='gender' id='female' value="female" type='radio'/>
                             <Label htmlFor='female' className='text-small-extra ml-1'>Female</Label>
                         </Col>
                     </Row>
