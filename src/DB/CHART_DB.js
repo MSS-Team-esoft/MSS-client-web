@@ -10,27 +10,27 @@ export const ITEM_LEVEL_CHART = [
 export const INCOME_CHART = [
     {
         name: 'january',
-        total: 120000
+        total: 100000
     },
     {
         name: 'february',
-        total: 240000
+        total: 160000
     },
     {
         name: 'march',
-        total: 300500
+        total: 240000
     },
     {
         name: 'april',
-        total: 500000
+        total: 400000
     },
     {
         name: 'may',
-        total: 805000
+        total: 700000
     },
     {
         name: 'june',
-        total: 230000
+        total: 900000
     }
 ]
 

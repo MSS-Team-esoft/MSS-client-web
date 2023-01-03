@@ -4,6 +4,7 @@ import WorkItemsTable from "./table/WorkItemsTable"
 import Select from "react-select"
 import {Circle, PlusSquare} from "react-feather"
 import EmployeeStatChart from "../../components/EmployeeStatChart/EmployeeStatChart"
+import {EMPLOYEE_DROP_DOWN, EMPLOYEE_MOCK_DB} from "../../DB/DB"
 
 const sheet = {
     effBanner: {
@@ -24,6 +25,10 @@ const WorkCreateUnitView = () => {
     const [worker, setWorker] = useState()
     const [open, setOpen] = useState(false)
 
+    // const fireAlert = () => {
+    //     fireAlertCustom("An empty field detected !", "You have to add a title to create a task", 'error')
+        // fireAlertCustom("Task creation success !", "You have created a new task", 'success')
+    // }
 
     return <Card>
         <CardHeader className='bg-gradient-primary f-Staatliches font-large-1'>
@@ -71,6 +76,7 @@ const WorkCreateUnitView = () => {
                 <Col lg={3}>
                     <Label htmlFor='assignWorker' className='text-small-extra'>Assign Worker</Label>
                     <Select
+                        options={EMPLOYEE_DROP_DOWN}
                         onChange={e => setWorker(e.value)}
                         name='assignWorker'
                         id='assignWorker'
@@ -114,7 +120,8 @@ const WorkCreateUnitView = () => {
                 <WorkItemsTable />
             </Row>
             <div className='mt-2 d-flex justify-content-end'>
-                <button className='f-Staatliches btn text-large btn-gradient-primary'>
+                <button
+                    className='f-Staatliches btn text-large btn-gradient-primary'>
                     CREATE NEW TASK
                 </button>
             </div>
