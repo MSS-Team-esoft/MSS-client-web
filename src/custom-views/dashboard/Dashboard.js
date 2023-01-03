@@ -140,7 +140,7 @@ const Dashboard = () => {
 
                     <Card className='btn btn-gradient-primary'>
                         <CardBody className='d-center align-items-baseline'>
-                            <p className='text-medium m-0 p-0'>Generate Stock Report</p>
+                            <p className='text-medium m-0 p-0'>Generate This month Income Report</p>
                         </CardBody>
                     </Card>
 

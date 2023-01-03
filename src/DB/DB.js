@@ -81,3 +81,19 @@ export const METRIC_UNITS = [
         value: 'units'
     }
 ]
+
+// Employee mock dropdown
+export const EMPLOYEE_DROP_DOWN = [
+    {
+        label: 'Jack Ryder',
+        value: 'kg'
+    },
+    {
+        label: 'Alsion Blue',
+        value: 'l'
+    },
+    {
+        label: 'Gathsara Umesh',
+        value: 'units'
+    }
+]
