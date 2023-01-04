@@ -1,7 +1,10 @@
 import { Edit, Trash2 } from "react-feather"
 import {Badge} from "reactstrap"
+import {useDispatch} from "react-redux"
+import {inventoryActions} from "../slice/inventorySlice"
 
 export const inventoryTableHandler = () => {
+    const dispatch = useDispatch()
 
     const handleTrackState = (qty, warning, crit) => {
 
@@ -9,6 +12,10 @@ export const inventoryTableHandler = () => {
         else if (qty <= warning && qty > crit) return <Badge color='light-warning'>warning</Badge>
 
         return <Badge color='light-danger'>critical</Badge>
+    }
+
+    const handleEdit = (data) => {
+        dispatch(inventoryActions.setCurrentlyEditing(data))
     }
 
     return  [
@@ -41,7 +48,7 @@ export const inventoryTableHandler = () => {
             sortable: true,
             minWidth: '100px',
             selector: row => {
-                return row.track_level
+                return row.critical_level
             }
         },
         {
@@ -57,16 +64,21 @@ export const inventoryTableHandler = () => {
             sortable: true,
             minWidth: '100px',
             selector: (row) => {
-                return handleTrackState(row?.quantity, row.warning_level, row.track_level)
+                return handleTrackState(row?.quantity, row.warning_level, row.critical_level)
             }
         },
         {
             name: 'ACTIONS',
             sortable: true,
             minWidth: '100px',
-            selector: () => {
+            selector: (row) => {
                 return <div>
-                    <button className='btn clickable'><Edit size={15}/></button>
+                    <button
+                      className='btn clickable'
+                      onClick={() => handleEdit(row)}
+                    >
+                        <Edit size={15}/>
+                    </button>
                     <button
                         className='btn clickable'>
                         <Trash2  size={15} color='crimson'/>

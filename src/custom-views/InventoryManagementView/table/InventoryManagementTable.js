@@ -18,6 +18,7 @@ const BootstrapCheckbox = forwardRef((props, ref) => (
 ))
 
 const onChangeHandle = (userdata) => {
+    console.log('called')
     console.log(userdata)
 }
 

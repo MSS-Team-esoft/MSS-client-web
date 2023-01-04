@@ -3,7 +3,9 @@ import {createSlice} from "@reduxjs/toolkit"
 const initialState = {
   loading: false,
   inventory: [],
-  stock: []
+  stock: [],
+  currentlyEditing: false,
+  editingData: null
 }
 
 export const inventorySlice = createSlice({
@@ -30,14 +32,22 @@ export const inventorySlice = createSlice({
     getItemsFailure(state) {
       state.loading = false
     },
+    setCurrentlyEditing(state, action) {
+      state.currentlyEditing = true
+      state.editingData = action.payload
+    },
     editItem(state) {
       state.loading = true
     },
     editItemSuccess(state) {
       state.loading = false
+      state.currentlyEditing = false
+      state.editingData = null
     },
     editItemFailure(state) {
       state.loading = false
+      state.currentlyEditing = false
+      state.editingData = null
     },
     deleteItem(state) {
       state.loading = true
@@ -65,6 +75,8 @@ export const inventoryActions = inventorySlice.actions
 
 export const selectInventoryLoading = (state) => state.inventoryReducer.loading
 export const selectInventoryItems = (state) => state.inventoryReducer.inventory
+export const selectInventoryCurrentlyEditing = (state) => state.inventoryReducer.currentlyEditing
+export const selectInventoryEditingData = (state) => state.inventoryReducer.editingData
 
 const inventoryReducer = inventorySlice.reducer
 export default inventoryReducer
