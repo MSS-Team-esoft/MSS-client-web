@@ -106,22 +106,30 @@ const Login = () => {
 
     return (
         <div className='auth-wrapper auth-cover login-back'>
-            <div className='auth-inner m-0 d-flex overflow-hidden'>
+            <div
+                style={{
+                    backgroundImage: 'linear-gradient(to bottom, #ffffff, #fafaff, #f4f5ff, #edf0ff, #e5ecff)'
+                }}
+                className='auth-inner m-0 d-flex overflow-hidden'>
                 <Col lg={8} className="d-center flex-column">
                     <img src={logo} width="20%" className="animate__animated animate__bounce"/>
-                    <h1 className="text-center mt-2 f-Londrina font-large-2">Together we make <span
-                        className="text-primary">Future</span></h1>
-                    <p className="f-courgette text-medium">Creativity awaits...</p>
+                    <h1 className="text-center mt-2 f-Staatliches font-large-2">Together we make <span
+                        className="text-primary f-Staatliches">Future</span></h1>
+                    <p className="f-courgette text-medium">We lock you from harm</p>
                 </Col>
-                <Card className="flex-grow-1 d-center h-100">
+                <Card
+                    style={{
+                        backgroundImage: 'linear-gradient(to bottom, #ffffff, #fffdff, #fffaf9, #fffaec, #feffe5)'
+                    }}
+                    className="flex-grow-1 d-center h-100">
                     <Col
                         className='d-flex align-items-center bg-transparent login-inner radius-20 auth-bg px-2 p-5'
                         lg={11}>
                         <Col className='px-xl-2 mx-auto' sm='8' md='6' lg='12'>
-                            <CardTitle tag='h2' className='fw-bold mb-1 text-center text-dark f-Londrina'>
-                                <h1>WELCOME TO THE LOCK ABOUY</h1>
+                            <CardTitle tag='h2' className='fw-bold mb-1 text-center text-dark f-Staatliches'>
+                                <h1>WELCOME TO THE LOCK HOOD</h1>
                             </CardTitle>
-                            <CardText className='mb-2 text-center f-courgette'><h4>Creativity awaits...</h4></CardText>
+                            <CardText className='mb-2 text-center f-courgette'><h4>We lock you from harm</h4></CardText>
                             <Form className='auth-login-form mt-2' onSubmit={handleSubmit(onSubmit)}>
                                 <div className='mb-1 mt-5'>
                                     <Label className='f-shippori' for='login-email'>
