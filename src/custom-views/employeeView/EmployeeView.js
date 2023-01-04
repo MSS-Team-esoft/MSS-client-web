@@ -4,13 +4,43 @@ import {useFormik} from "formik"
 import {useDispatch} from "react-redux"
 import {employeeActions} from "./slice/employeeSlice"
 import {useEffect} from "react"
+import {fireAlertError} from "../../utility/customUtils"
 
 const EmployeeView = () => {
     const dispatch = useDispatch()
-    
+
     useEffect(() => {
         dispatch(employeeActions.getEmployees())
     }, [dispatch])
+
+    const validation = values => {
+        if (!values.name) {
+            fireAlertError("Empty data !", "You have to enter the name")
+            return false
+        }
+
+        if (!values.gender) {
+            fireAlertError("Empty data !", "You have to select gender")
+            return false
+        }
+
+        if (!values.dob) {
+            fireAlertError("Empty data !", "You have to add your dob")
+            return false
+        }
+
+        if (!values.address) {
+            fireAlertError("Empty data !", "You have to enter the address")
+            return false
+        }
+
+        if (!values.telNo) {
+            fireAlertError("Empty data !", "You have to enter the tel No.")
+            return false
+        }
+
+        dispatch(employeeActions.addEmployee(values))
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -21,7 +51,7 @@ const EmployeeView = () => {
             telNo: ''
         },
         onSubmit: (values) => {
-            dispatch(employeeActions.addEmployee(values))
+            validation(values)
         }
     })
 
