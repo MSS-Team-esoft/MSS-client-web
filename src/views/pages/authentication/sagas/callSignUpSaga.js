@@ -15,10 +15,11 @@ const loginAsync = async (username, password) => {
 }
 
 export default function* callSignUpSaga({payload}) {
+  // eslint-disable-next-line no-unused-vars
   const {data, history} = payload
 
   try {
-    yield call(loginAsync, data.email, data.password)
+    // yield call(loginAsync, data.email, data.password)
     window.localStorage.setItem("user", "logged")
     history.push("/dashboard")
     yield put(authenticationActions.signInSuccess())
