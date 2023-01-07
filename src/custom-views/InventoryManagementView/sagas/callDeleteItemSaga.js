@@ -9,7 +9,7 @@ const deleteItemAsync = async (id) => {
 
 export default function* callDeleteItemSaga({payload}) {
   try {
-    yield call(deleteItemAsync, payload.id)
+    yield call(deleteItemAsync, payload.serial_number)
     yield put(inventoryActions.deleteItemSuccess())
     successMessage('Delete success!')
   } catch (e) {

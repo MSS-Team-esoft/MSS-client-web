@@ -2,7 +2,9 @@ import {createSlice} from "@reduxjs/toolkit"
 
 const initialState = {
   loading: false,
-  workshop: []
+  workshop: [],
+  currentlyEditing: false,
+  editingData: null
 }
 
 export const workshopSlice = createSlice({
@@ -29,14 +31,22 @@ export const workshopSlice = createSlice({
     getWorkshopFailure(state) {
       state.loading = false
     },
+    setCurrentlyEditing(state, action) {
+      state.currentlyEditing = true
+      state.editingData = action.payload
+    },
     editWorkshop(state) {
       state.loading = true
     },
     editWorkshopSuccess(state) {
       state.loading = false
+      state.currentlyEditing = false
+      state.editingData = null
     },
     editWorkshopFailure(state) {
       state.loading = false
+      state.currentlyEditing = false
+      state.editingData = null
     },
     deleteWorkshopFailure(state) {
       state.loading = false
@@ -53,6 +63,8 @@ export const workshopSlice = createSlice({
 export const workshopActions = workshopSlice.actions
 
 export const selectWorkshopLoading = (state) => state.workshopReducer.loading
+export const selectWorkshopCurrentlyEditing = (state) => state.workshopReducer.currentlyEditing
+export const selectWorkshopCurrentlyEditingData = (state) => state.workshopReducer.editingData
 export const selectWorkshops = (state) => state.workshopReducer.workshop
 
 const workshopReducer = workshopSlice.reducer

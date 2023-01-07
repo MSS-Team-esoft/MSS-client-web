@@ -18,6 +18,10 @@ export const inventoryTableHandler = () => {
         dispatch(inventoryActions.setCurrentlyEditing(data))
     }
 
+    const handleDelete = (data) => {
+        dispatch(inventoryActions.deleteItem(data))
+    }
+
     return  [
         {
             name: 'NAME',
@@ -80,7 +84,9 @@ export const inventoryTableHandler = () => {
                         <Edit size={15}/>
                     </button>
                     <button
-                        className='btn clickable'>
+                        className='btn clickable'
+                        onClick={() => handleDelete(row)}
+                    >
                         <Trash2  size={15} color='crimson'/>
                     </button>
                 </div>

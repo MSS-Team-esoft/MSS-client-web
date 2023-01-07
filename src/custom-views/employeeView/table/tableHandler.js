@@ -1,6 +1,17 @@
 import { Edit, Trash2 } from "react-feather"
+import {useDispatch} from "react-redux"
+import {employeeActions} from "../slice/employeeSlice"
 
 export const employeeTableHandler = () => {
+    const dispatch = useDispatch()
+
+    const handleEdit = (data) => {
+        dispatch(employeeActions.setCurrentlyEditing(data))
+    }
+
+    const handleDelete = (data) => {
+        dispatch(employeeActions.deleteEmployee(data))
+    }
 
     return  [
         {
@@ -32,7 +43,7 @@ export const employeeTableHandler = () => {
             sortable: true,
             minWidth: '100px',
             selector: row => {
-                return row.telNo
+                return row.telephone_number
             }
         },
         {
@@ -47,11 +58,18 @@ export const employeeTableHandler = () => {
             name: 'ACTIONS',
             sortable: true,
             minWidth: '100px',
-            selector: () => {
+            selector: (row) => {
                 return <div>
-                    <button className='btn clickable'><Edit size={15}/></button>
                     <button
-                        className='btn clickable'>
+                      className='btn clickable'
+                      onClick={() => handleEdit(row)}
+                    >
+                        <Edit size={15}/>
+                    </button>
+                    <button
+                      className='btn clickable'
+                      onClick={() => handleDelete(row)}
+                    >
                         <Trash2  size={15} color='crimson'/>
                     </button>
                 </div>

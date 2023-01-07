@@ -9,7 +9,7 @@ const editItemAsync = async (id, data) => {
 
 export default function* callEditItemSaga({payload}) {
   try {
-    yield call(editItemAsync, payload.data)
+    yield call(editItemAsync, payload.serial_number, payload)
     yield put(inventoryActions.editItemSuccess())
     successMessage('Update success!')
   } catch (e) {

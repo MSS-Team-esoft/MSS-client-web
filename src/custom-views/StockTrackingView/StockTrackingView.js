@@ -1,10 +1,24 @@
 import {Card, CardBody, CardFooter, CardHeader, Col, Row} from "reactstrap"
 import {Bar, CartesianGrid, ResponsiveContainer, XAxis, YAxis, BarChart, Legend} from "recharts"
-import {ITEM_LEVEL_CHART} from "../../DB/CHART_DB"
 import {Activity, AlertTriangle, Check} from "react-feather"
 import TrackingTable from "./tables/TrackingTable"
+import {useEffect} from "react"
+import {useDispatch, useSelector} from "react-redux"
+import {
+    inventoryTrackingActions, selectDashboardCriticalInventory,
+    selectDashboardGoodInventory, selectDashboardWarningInventory
+} from "./slice/inventoryTrackingSlice"
 
 const StockTrackingView = () => {
+    const dispatch = useDispatch()
+    const goodItems = useSelector(selectDashboardGoodInventory)
+    const warningItems = useSelector(selectDashboardWarningInventory)
+    const criticalItems = useSelector(selectDashboardCriticalInventory)
+
+
+    useEffect(() => {
+        dispatch(inventoryTrackingActions.getDashboardDetails())
+    }, [])
 
     return <div>
         <Row>
@@ -12,7 +26,14 @@ const StockTrackingView = () => {
                 <Card style={{height: '40vh'}}>
                     <CardBody>
                         <ResponsiveContainer>
-                            <BarChart data={ITEM_LEVEL_CHART}>
+                            <BarChart data={[
+                                {
+                                    name: "Track level",
+                                    good: goodItems.length,
+                                    warning: warningItems.length,
+                                    critical: criticalItems.length
+                                }
+                            ]}>
                                 <CartesianGrid strokeDasharray="3 3"/>
                                 <XAxis dataKey="name"/>
                                 <YAxis/>
@@ -37,7 +58,7 @@ const StockTrackingView = () => {
                                     <Check size={100} color='rgba(46, 213, 115,1.0)'/>
                                 </div>
                                 <div>
-                                    <b className='text-large text-success'>20 ITEMS</b>
+                                    <b className='text-large text-success'>{goodItems.length} ITEM(S)</b>
                                 </div>
                             </CardBody>
                             <CardFooter className='d-center'>
@@ -54,7 +75,7 @@ const StockTrackingView = () => {
                                     <AlertTriangle size={100} color='#fbc531'/>
                                 </div>
                                 <div>
-                                    <b className='text-large text-warning'>50 ITEMS</b>
+                                    <b className='text-large text-warning'>{warningItems.length} ITEM(S)</b>
                                 </div>
                             </CardBody>
                             <CardFooter className='d-center'>
@@ -71,7 +92,7 @@ const StockTrackingView = () => {
                                     <Activity size={100} color='#eb4d4b'/>
                                 </div>
                                 <div>
-                                    <b className='text-large text-danger'>40 ITEMS</b>
+                                    <b className='text-large text-danger'>{criticalItems.length} ITEM(S)</b>
                                 </div>
                             </CardBody>
                             <CardFooter className='d-center'>
