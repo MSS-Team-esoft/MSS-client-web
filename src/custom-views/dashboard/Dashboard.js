@@ -1,7 +1,6 @@
-import {Card, CardBody, CardFooter, CardHeader, Col, Row} from "reactstrap"
+import {Card, CardBody, CardFooter, CardHeader, Col, Modal, ModalBody, ModalHeader, Row} from "reactstrap"
 import {Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, XAxis, YAxis} from "recharts"
-import {ITEM_LEVEL_CHART} from "../../DB/CHART_DB"
-import {Activity, AlertTriangle, Check, DollarSign, Target} from "react-feather"
+import {Activity, AlertTriangle, Check} from "react-feather"
 import IncomeReportChart from "../../components/IncomerReportView/IncomeReportChart"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
@@ -12,6 +11,7 @@ import {
     selectDashboardWarningInventory
 } from "./slice/dashboardSlice"
 import {incomeActions, selectIncomeMonth} from "../IncomeReportView/slice/incomeReportSlice"
+import InventorManagementTable from "../InventoryManagementView/table/InventoryManagementTable"
 
 const Dashboard = () => {
     const dispatch = useDispatch()
@@ -20,6 +20,10 @@ const Dashboard = () => {
     const warningItems = useSelector(selectDashboardWarningInventory)
     const criticalItems = useSelector(selectDashboardCriticalInventory)
     const monthIncome = useSelector(selectIncomeMonth)
+
+    const [goodOpen, setGoodOpen] = useState(false)
+    const [warningOpen, setWarningOpen] = useState(false)
+    const [criticalOpen, setCriticalOpen] = useState(false)
 
     useEffect(() => {
         dispatch(dashboardActions.getDashboardDetails())
@@ -54,7 +58,7 @@ const Dashboard = () => {
                                 <CartesianGrid strokeDasharray="3 3"/>
                                 <XAxis dataKey="name"/>
                                 <YAxis/>
-                                <Legend />
+                                <Legend/>
                                 <Bar barSize={40} dataKey="good" fill="rgba(46, 213, 115, 0.6)"/>
                                 <Bar barSize={40} dataKey="warning" fill="rgba(255, 165, 2, 0.6)"/>
                                 <Bar barSize={40} dataKey="critical" fill="rgba(235, 77, 75, 0.6)"/>
@@ -78,7 +82,7 @@ const Dashboard = () => {
                                     <b className='text-large text-success'>{goodItems.length} ITEM(S)</b>
                                 </div>
                             </CardBody>
-                            <CardFooter className='d-center'>
+                            <CardFooter onClick={() => setGoodOpen(!goodOpen)} className='d-center'>
                                 Click to see items
                             </CardFooter>
                         </Card>
@@ -95,7 +99,7 @@ const Dashboard = () => {
                                     <b className='text-large text-warning'>{warningItems.length} ITEM(S)</b>
                                 </div>
                             </CardBody>
-                            <CardFooter className='d-center'>
+                            <CardFooter onClick={() => setWarningOpen(!warningOpen)} className='d-center'>
                                 Click to see items
                             </CardFooter>
                         </Card>
@@ -112,7 +116,7 @@ const Dashboard = () => {
                                     <b className='text-large text-danger'>{criticalItems.length} ITEM(S)</b>
                                 </div>
                             </CardBody>
-                            <CardFooter className='d-center'>
+                            <CardFooter onClick={() => setCriticalOpen(!criticalOpen)} className='d-center'>
                                 Click to see items
                             </CardFooter>
                         </Card>
@@ -137,7 +141,7 @@ const Dashboard = () => {
                 </Card>
             </Col>
         </Row>
-        <hr />
+        <hr/>
         <h1 className='f-Staatliches mb-3 mt-3'>Income Section</h1>
         <Row>
             <Col lg={3}>
@@ -175,23 +179,71 @@ const Dashboard = () => {
                     </CardFooter>
                 </Card>
 
-                    <Card className='btn btn-gradient-primary'>
-                        <CardBody className='d-center align-items-baseline'>
-                            <p className='text-medium m-0 p-0'>Generate This month Income Report</p>
-                        </CardBody>
-                    </Card>
+                <Card className='btn btn-gradient-primary'>
+                    <CardBody className='d-center align-items-baseline'>
+                        <p className='text-medium m-0 p-0'>Generate This month Income Report</p>
+                    </CardBody>
+                </Card>
 
-                    <Card className='btn btn-gradient-success'>
-                        <CardBody className='d-center align-items-baseline'>
-                            <p className='text-medium m-0 p-0'>Generate income movement</p>
-                        </CardBody>
-                    </Card>
+                <Card className='btn btn-gradient-success'>
+                    <CardBody className='d-center align-items-baseline'>
+                        <p className='text-medium m-0 p-0'>Generate income movement</p>
+                    </CardBody>
+                </Card>
 
             </Col>
             <Col lg={9}>
-                <IncomeReportChart />
+                <IncomeReportChart/>
             </Col>
         </Row>
+
+        {/*--------------------------------------*/}
+        {/*----Good level items modal started----*/}
+        {/*--------------------------------------*/}
+        <Modal size="xl"
+               className='modal-dialog-centered' isOpen={goodOpen} toggle={() => setGoodOpen(!goodOpen)} backdrop={3}>
+            <ModalHeader toggle={() => setGoodOpen(!goodOpen)}>
+                <h3 className='m-0 p-0 f-Staatliches'>STOCK LEVEL: GOOD</h3>
+            </ModalHeader>
+            <ModalBody>
+                <InventorManagementTable stockItems={goodItems}/>
+            </ModalBody>
+        </Modal>
+        {/*---------------------*/}
+        {/*----Good level items modal finished----*/}
+        {/*---------------------*/}
+
+        {/*--------------------------------------*/}
+        {/*----Good level items modal started----*/}
+        {/*--------------------------------------*/}
+        <Modal size="xl"
+               className='modal-dialog-centered' isOpen={warningOpen} toggle={() => setWarningOpen(!warningOpen)} backdrop={3}>
+            <ModalHeader toggle={() => setWarningOpen(!warningOpen)}>
+                <h3 className='m-0 p-0 f-Staatliches'>STOCK LEVEL: WARNING</h3>
+            </ModalHeader>
+            <ModalBody>
+                <InventorManagementTable stockItems={warningItems}/>
+            </ModalBody>
+        </Modal>
+        {/*---------------------*/}
+        {/*----Good level items modal finished----*/}
+        {/*---------------------*/}
+
+        {/*--------------------------------------*/}
+        {/*----Good level items modal started----*/}
+        {/*--------------------------------------*/}
+        <Modal size="xl"
+               className='modal-dialog-centered' isOpen={criticalOpen} toggle={() => setCriticalOpen(!criticalOpen)} backdrop={3}>
+            <ModalHeader toggle={() => setCriticalOpen(!criticalOpen)}>
+                <h3 className='m-0 p-0 f-Staatliches'>STOCK LEVEL: CRITICAL</h3>
+            </ModalHeader>
+            <ModalBody>
+                <InventorManagementTable stockItems={goodItems}/>
+            </ModalBody>
+        </Modal>
+        {/*---------------------*/}
+        {/*----Good level items modal finished----*/}
+        {/*---------------------*/}
     </div>
 }
 

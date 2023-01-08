@@ -8,15 +8,35 @@ import {
     selectEmployeeCurrentlyEditingData
 } from "./slice/employeeSlice"
 import {useEffect} from "react"
+import Select from "react-select"
 
 const EmployeeView = () => {
     const dispatch = useDispatch()
-const currentlyEditing = useSelector(selectEmployeeCurrentlyEditing)
+    const currentlyEditing = useSelector(selectEmployeeCurrentlyEditing)
     const currentlyEditingData = useSelector(selectEmployeeCurrentlyEditingData)
 
     useEffect(() => {
         dispatch(employeeActions.getEmployees())
     }, [dispatch])
+
+    const options = [
+        {
+            label: 'employee',
+            value: 'employee'
+        },
+        {
+            label: 'stock manager',
+            value: 'stock'
+        },
+        {
+            label: 'supervisor',
+            value: 'supervisor'
+        },
+        {
+            label: 'admin',
+            value: 'admin'
+        }
+    ]
 
     const formik = useFormik({
         enableReinitialize: true,
@@ -53,7 +73,7 @@ const currentlyEditing = useSelector(selectEmployeeCurrentlyEditing)
                                 name='name'
                                 id='name' placeholder='Enter your name'/>
                         </Col>
-                        <Col lg={3}>
+                        <Col lg={2}>
                             <Label htmlFor='dob' className='text-small-extra'>Date of birth</Label>
                             <Input
                                 onChange={formik.handleChange}
@@ -62,7 +82,7 @@ const currentlyEditing = useSelector(selectEmployeeCurrentlyEditing)
                                 name='dob'
                                 type='date' id='dob' placeholder='Enter description'/>
                         </Col>
-                        <Col lg={3}>
+                        <Col lg={2}>
                             <Label htmlFor='telNo' className='text-small-extra'>telephone no.</Label>
                             <Input
                                 onChange={formik.handleChange}
@@ -70,6 +90,10 @@ const currentlyEditing = useSelector(selectEmployeeCurrentlyEditing)
                                 value={formik.values.telNo}
                                 name='telNo'
                                 type='tel' id='telNo' placeholder='Your telephone number'/>
+                        </Col>
+                        <Col lg={3}>
+                            <Label htmlFor='role' className='text-small-extra'>Add role</Label>
+                            <Select id='role' options={options}/>
                         </Col>
                     </Row>
                     <Row className='mt-4'>
@@ -103,18 +127,19 @@ const currentlyEditing = useSelector(selectEmployeeCurrentlyEditing)
                     </Row>
                     <div className='w-100 mt-2 d-flex justify-content-end'>
                         {
-                          currentlyEditing &&
-                          <button
-                            type='button'
-                            className='btn btn-danger mr-2'
-                            onClick={() => {
-                                dispatch(employeeActions.editEmployeeFailure())
-                            }}
-                          >
-                              Cancel
-                          </button>
+                            currentlyEditing &&
+                            <button
+                                type='button'
+                                className='btn btn-danger mr-2'
+                                onClick={() => {
+                                    dispatch(employeeActions.editEmployeeFailure())
+                                }}
+                            >
+                                Cancel
+                            </button>
                         }
-                        <button type="submit" className='btn btn-primary'>{currentlyEditing ? 'UPDATE' : 'REGISTER'}</button>
+                        <button type="submit"
+                                className='btn btn-primary'>{currentlyEditing ? 'UPDATE' : 'REGISTER'}</button>
                     </div>
                 </Form>
             </CardBody>

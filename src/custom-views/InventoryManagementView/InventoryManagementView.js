@@ -4,7 +4,12 @@ import InventorManagementTable from "./table/InventoryManagementTable"
 import Select from "react-select"
 import {METRIC_UNITS} from "../../DB/DB"
 import {useDispatch, useSelector} from "react-redux"
-import {inventoryActions, selectInventoryCurrentlyEditing, selectInventoryEditingData} from "./slice/inventorySlice"
+import {
+  inventoryActions,
+  selectInventoryCurrentlyEditing,
+  selectInventoryEditingData,
+  selectInventoryItems
+} from "./slice/inventorySlice"
 import {useEffect, useState} from "react"
 
 const InventoryManagementView = () => {
@@ -12,6 +17,9 @@ const InventoryManagementView = () => {
   const currentlyEditing = useSelector(selectInventoryCurrentlyEditing)
   const currentlyEditingData = useSelector(selectInventoryEditingData)
   const [selectedUnit, setSelectedUnit] = useState(null)
+
+  const stockItems = useSelector(selectInventoryItems)
+
 
   useEffect(() => {
     dispatch(inventoryActions.getItems())
@@ -34,7 +42,7 @@ const InventoryManagementView = () => {
       item_name: currentlyEditing ? currentlyEditingData.item_name : '',
       serial_number: currentlyEditing ? currentlyEditingData.serial_number : '',
       quantity: currentlyEditing ? currentlyEditingData.quantity : '',
-      unit: currentlyEditing ? currentlyEditingData.unit : '',
+      unit: currentlyEditing ? currentlyEditingData.unit : 'unit',
       warning_level: currentlyEditing ? currentlyEditingData.warning_level : 0,
       critical_level: currentlyEditing ? currentlyEditingData.critical_level : 0
     },
@@ -97,7 +105,7 @@ const InventoryManagementView = () => {
                 min={1}
               />
             </Col>
-            <Col lg={2}>
+            <Col hidden lg={2}>
               <Label htmlFor='telNo' className='text-small-extra'>Unit</Label>
               <Select
                 options={METRIC_UNITS}
@@ -162,7 +170,7 @@ const InventoryManagementView = () => {
         STOCK
       </CardHeader>
       <CardBody>
-        <InventorManagementTable/>
+        <InventorManagementTable stockItems={stockItems}/>
       </CardBody>
     </Card>
   </div>

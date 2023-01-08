@@ -7,13 +7,12 @@ import {
     Row
 } from 'reactstrap'
 import {workItemsTableHandler} from "./tableHandler"
-import {ITEMS_MOCK_DB} from "../../../DB/DB"
 
 const onChangeHandle = (userdata) => {
     console.log(userdata)
 }
 
-const WorkItemsTable = () => {
+const WorkItemsTable = ({data}) => {
     // ** States
     const [currentPage, setCurrentPage] = useState(0)
     const [searchValue] = useState('')
@@ -31,7 +30,7 @@ const WorkItemsTable = () => {
             nextLabel=''
             forcePage={currentPage}
             onPageChange={page => handlePagination(page)}
-            pageCount={searchValue.length ? Math.ceil(filteredData.length / 10) : Math.ceil(ITEMS_MOCK_DB.length / 10) || 1}
+            pageCount={searchValue.length ? Math.ceil(filteredData.length / 10) : Math.ceil(data.length / 10) || 1}
             breakLabel='...'
             pageRangeDisplayed={2}
             marginPagesDisplayed={2}
@@ -62,7 +61,7 @@ const WorkItemsTable = () => {
                         sortIcon={<ChevronDown size={10}/>}
                         paginationDefaultPage={currentPage + 1}
                         paginationComponent={CustomPagination}
-                        data={ITEMS_MOCK_DB}
+                        data={data}
                         onSelectedRowsChange={onChangeHandle}
                     />
                 </div>
