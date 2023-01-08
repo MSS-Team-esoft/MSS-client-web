@@ -24,7 +24,7 @@ export const incomeReportTableHandler = () => {
             sortable: true,
             minWidth: '100px',
             selector: row => {
-                return row?.date
+                return new Date(row?.log_date).toLocaleString()
             }
         },
         {
@@ -32,7 +32,7 @@ export const incomeReportTableHandler = () => {
             sortable: true,
             minWidth: '100px',
             selector: row => {
-                return row?.createdAt
+                return new Date(row?.created_at).toLocaleString()
             }
         },
         {
@@ -40,7 +40,7 @@ export const incomeReportTableHandler = () => {
             sortable: true,
             minWidth: '100px',
             selector: row => {
-                return row?.updatedAt
+                return new Date(row?.updated_at).toLocaleString()
             }
         }
     ]

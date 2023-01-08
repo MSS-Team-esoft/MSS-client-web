@@ -2,7 +2,9 @@ import {createSlice} from "@reduxjs/toolkit"
 
 const initialState = {
   loading: false,
-  inventory: null,
+  good: [],
+  warning: [],
+  critical: [],
   income: null,
   stockReport: null,
   incomeMovement: null
@@ -17,8 +19,9 @@ export const dashboardSlice = createSlice({
     },
     saveDashboardDetails(state, action) {
       state.loading = false
-      state.inventory = action.payload.inventory
-      state.income = action.payload.income
+      state.good = action.payload.good
+      state.warning = action.payload.warning
+      state.critical = action.payload.critical
     },
     getDashboardDetailsFailure(state) {
       state.loading = true
@@ -48,7 +51,9 @@ export const dashboardSlice = createSlice({
 
 export const dashboardActions = dashboardSlice.actions
 
-export const selectDashboardInventory = (state) => state.dashboardReducer.inventory
+export const selectDashboardGoodInventory = (state) => state.dashboardReducer.good
+export const selectDashboardWarningInventory = (state) => state.dashboardReducer.warning
+export const selectDashboardCriticalInventory = (state) => state.dashboardReducer.critical
 export const selectDashboardIncome = (state) => state.dashboardReducer.income
 export const selectDashboardStockReport = (state) => state.dashboardReducer.stockReport
 export const selectDashboardIncomeReport = (state) => state.dashboardReducer.incomeMovement

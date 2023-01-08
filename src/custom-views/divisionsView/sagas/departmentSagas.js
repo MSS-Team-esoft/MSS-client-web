@@ -10,4 +10,7 @@ export default function* departmentSagas() {
   yield takeLatest(departmentActions.deleteDepartment, callDeleteDepartmentSaga)
   yield takeLatest(departmentActions.editDepartment, callEditDepartmentSaga)
   yield takeLatest(departmentActions.getDepartments, callGetDepartmentsSaga)
+  yield takeLatest(departmentActions.addDepartmentSuccess, callGetDepartmentsSaga)
+  yield takeLatest(departmentActions.editDepartmentSuccess, callGetDepartmentsSaga)
+  yield takeLatest(departmentActions.deleteDepartmentSuccess, callGetDepartmentsSaga)
 }

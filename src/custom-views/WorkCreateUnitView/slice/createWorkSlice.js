@@ -10,25 +10,15 @@ export const createWorkSlice = createSlice({
   name: 'createWork',
   initialState,
   reducers:{
-    getItems(state) {
+    getData(state) {
       state.loading = true
     },
-    saveItems(state, action) {
+    saveData(state, action) {
       state.loading = false
       state.items = action.payload.items
       state.workers = action.payload.workers
     },
-    getItemsFailure(state) {
-      state.loading = false
-    },
-    // eslint-disable-next-line no-unused-vars
-    deleteItem(state, id) {
-      state.loading = true
-    },
-    deleteItemSuccess(state) {
-      state.loading = false
-    },
-    deleteItemFailure(state) {
+    getDataFailure(state) {
       state.loading = false
     },
     // eslint-disable-next-line no-unused-vars

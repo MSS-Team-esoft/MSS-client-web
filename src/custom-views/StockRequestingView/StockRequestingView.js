@@ -2,9 +2,25 @@ import {Card, CardBody, CardHeader, Col, Form, Input, Label, Row} from "reactstr
 import Select from "react-select"
 import DivisionStockTable from "./tables/DivisionStockTable"
 import {useFormik} from "formik"
-import {ITEM_DROPDOWN} from "../../DB/DB"
+import {useDispatch, useSelector} from "react-redux"
+import {useEffect, useState} from "react"
+import {requestingActions, selectRequestingItems} from "./slice/requestingSlice"
 
 const StockRequestingView = () => {
+    const dispatch = useDispatch()
+    const items = useSelector(selectRequestingItems)
+    const [selectItems, setSelectItems] = useState([])
+    
+    useEffect(() => {
+        dispatch(requestingActions.getItems())
+    }, [dispatch])
+
+    useEffect(() => {
+        const temp = items.map(data => {
+            return {value: data.id, label: data.item_name}
+        })
+        setSelectItems(temp)
+    }, [items])
 
     const formik = useFormik({
         initialValues: {
@@ -30,7 +46,7 @@ const StockRequestingView = () => {
                     <Row>
                         <Col lg={3}>
                             <Label className='text-small-extra'>Select Item</Label>
-                            <Select options={ITEM_DROPDOWN} name='item' id='item' onChange={e => {
+                            <Select options={selectItems} name='item' id='item' onChange={e => {
                                 formik.setValues({
                                     ...formik.values,
                                     item: e.value

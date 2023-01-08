@@ -1,4 +1,4 @@
-import {forwardRef, Fragment, useState} from 'react'
+import {forwardRef, Fragment, useEffect, useState} from 'react'
 import DataTable from 'react-data-table-component'
 import {ChevronDown} from 'react-feather'
 import ReactPaginate from 'react-paginate'
@@ -8,6 +8,8 @@ import {
 } from 'reactstrap'
 import {incomeReportTableHandler} from "./tableHandler"
 import {INCOME_LOGS_MOCK_DB} from "../../../DB/DB"
+import {useDispatch, useSelector} from "react-redux"
+import {incomeActions, selectIncomeYear} from "../slice/incomeReportSlice"
 
 const BootstrapCheckbox = forwardRef((props, ref) => (
     <div className='form-check'>
@@ -20,10 +22,16 @@ const onChangeHandle = (userdata) => {
 }
 
 const IncomeReportTable = () => {
+    const dispatch = useDispatch()
     // ** States
     const [currentPage, setCurrentPage] = useState(0)
     const [searchValue] = useState('')
     const [filteredData] = useState([])
+    const yearIncome = useSelector(selectIncomeYear)
+
+    useEffect(() => {
+        dispatch(incomeActions.getIncomeDetails())
+    }, [dispatch])
 
     // ** Function to handle Pagination
     const handlePagination = page => {
@@ -37,7 +45,7 @@ const IncomeReportTable = () => {
             nextLabel=''
             forcePage={currentPage}
             onPageChange={page => handlePagination(page)}
-            pageCount={searchValue.length ? Math.ceil(filteredData.length / 10) : Math.ceil(INCOME_LOGS_MOCK_DB.length / 10) || 1}
+            pageCount={searchValue.length ? Math.ceil(filteredData.length / 10) : Math.ceil(yearIncome.length / 10) || 1}
             breakLabel='...'
             pageRangeDisplayed={2}
             marginPagesDisplayed={2}
@@ -68,7 +76,7 @@ const IncomeReportTable = () => {
                         sortIcon={<ChevronDown size={10}/>}
                         paginationDefaultPage={currentPage + 1}
                         paginationComponent={CustomPagination}
-                        data={INCOME_LOGS_MOCK_DB}
+                        data={yearIncome}
                         onSelectedRowsChange={onChangeHandle}
                     />
                 </div>

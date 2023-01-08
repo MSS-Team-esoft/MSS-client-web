@@ -1,13 +1,48 @@
-import {Card, CardBody, CardFooter, CardHeader, Col, Input, Label, Row} from "reactstrap"
+import {Button, Card, CardBody, CardFooter, CardHeader, Col, Form, Input, Label, Row} from "reactstrap"
 import {Activity, AlertTriangle, Check, DollarSign, Dribbble, Star, Target, Upload} from "react-feather"
 import IncomeReportTable from "./table/IncomeReportTable"
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import IncomeReportChart from "../../components/IncomerReportView/IncomeReportChart"
+import {useDispatch, useSelector} from "react-redux"
+import {incomeActions, selectIncomeMonth, selectIncomeYear} from "./slice/incomeReportSlice"
 
 const IncomeReportModuleView = () => {
+    const dispatch = useDispatch()
+    const [calculatedYearIncome, setCalculatedYearIncome] = useState(0)
+    const [calculatedMonthIncome, setCalculatedMonthIncome] = useState(0)
+    const yearIncome = useSelector(selectIncomeYear)
+    const monthIncome = useSelector(selectIncomeMonth)
+
+    useEffect(() => {
+        dispatch(incomeActions.getIncomeDetails())
+    }, [dispatch])
+
+    useEffect(() => {
+        if (yearIncome) {
+            let income = 0
+            yearIncome.map((item) => {
+                income += item.amount
+            })
+            setCalculatedYearIncome(income)
+        }
+    }, [yearIncome])
+
+    useEffect(() => {
+        if (monthIncome) {
+            let income = 0
+            monthIncome.map((item) => {
+                income += item.amount
+            })
+            setCalculatedMonthIncome(income)
+        }
+    }, [monthIncome])
 
     // eslint-disable-next-line no-unused-vars
     const [file, setFile] = useState()
+
+    const handleUpload = () => {
+        dispatch(incomeActions.uploadIncomeSheet(file))
+    }
 
     return <div>
         <div className='w-100'>
@@ -20,7 +55,7 @@ const IncomeReportModuleView = () => {
                                 <DollarSign size={70} color='rgba(46, 213, 115,1.0)'/>
                             </div>
                             <div>
-                                <b className='text-large text-success'>$ 20000/=</b>
+                                <b className='text-large text-success'>{calculatedYearIncome}/=</b>
                             </div>
                         </CardBody>
                         <CardFooter className='d-center text-grey'>
@@ -37,7 +72,7 @@ const IncomeReportModuleView = () => {
                                 <Target size={70} color='#fbc531'/>
                             </div>
                             <div>
-                                <b className='text-large text-warning'>$ 18000/=</b>
+                                <b className='text-large text-warning'>{calculatedMonthIncome}/=</b>
                             </div>
                         </CardBody>
                         <CardFooter className='d-center text-grey'>
@@ -54,7 +89,7 @@ const IncomeReportModuleView = () => {
                                 <Star size={70} color='#eb4d4b'/>
                             </div>
                             <div>
-                                <b className='text-large text-danger'>$ 55000/=</b>
+                                <b className='text-large text-danger'>{monthIncome.length}</b>
                             </div>
                         </CardBody>
                         <CardFooter className='d-center text-grey'>
@@ -69,22 +104,34 @@ const IncomeReportModuleView = () => {
                 UPLOAD INCOME SHEET
             </CardHeader>
             <CardBody>
-                <Row>
-                    <Col lg={2}>
-                        <Label htmlFor='incomeUpload' className='btn btn-success f-Staatliches text-medium d-flex align-items-end justify-content-center'>
-                            <Upload size={20} className='mr-1'/>
-                            UPLOAD
-                        </Label>
-                        <Input
-                            onChange={e => {
-                                setFile(e?.target?.files[0])
-                            }}
-                            hidden id='incomeUpload' type='file'/>
-                    </Col>
-                    <Col>
-                        <Input placeholder='your file will be show in here...' value={file?.name} disabled/>
-                    </Col>
-                </Row>
+                    <Row>
+                        <Col lg={2}>
+                            <Label htmlFor='incomeUpload' className='btn btn-outline-success f-Staatliches text-medium d-flex align-items-end justify-content-center'>
+                                Choose File
+                            </Label>
+                            <Input
+                              onChange={e => {
+                                  setFile(e?.target?.files[0])
+                              }}
+                              hidden
+                              id='incomeUpload'
+                              type='file'
+                              accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                            />
+                        </Col>
+                        <Col>
+                            <Input placeholder='your file will be show in here...' value={file?.name} disabled/>
+                        </Col>
+                        <Col lg={2}>
+                            <Button
+                              className='btn btn-success f-Staatliches text-medium d-flex align-items-end justify-content-center'
+                              onClick={handleUpload}
+                            >
+                                <Upload size={20} className='mr-1'/>
+                                Upload
+                            </Button>
+                        </Col>
+                    </Row>
             </CardBody>
         </Card>
         <Card className='mt-2'>

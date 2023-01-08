@@ -1,39 +1,35 @@
 import {Button, Card, CardBody, CardHeader, Col, Form, Input, Label, Row} from "reactstrap"
 import WorkshopManagementTable from "./table/WorkshopManagementTable"
 import {useFormik} from "formik"
-import {workshopActions} from "./slice/workshopSlice"
-import {useDispatch} from "react-redux"
+import {
+    selectWorkshopCurrentlyEditing,
+    selectWorkshopCurrentlyEditingData,
+    workshopActions
+} from "./slice/workshopSlice"
+import {useDispatch, useSelector} from "react-redux"
 import {useEffect} from "react"
-import {fireAlertError} from "../../utility/customUtils"
 
 const ManageWorkshopView = () => {
     const dispatch = useDispatch()
+const currentlyEditing = useSelector(selectWorkshopCurrentlyEditing)
+    const currentlyEditingData = useSelector(selectWorkshopCurrentlyEditingData)
 
     useEffect(() => {
         dispatch(workshopActions.getWorkshops())
     }, [dispatch])
 
-    const validate = (values) => {
-
-        if (!values?.name) {
-            fireAlertError("An empty data", "You have to add a name")
-            return false
-        }
-
-        if (!values?.description) {
-            fireAlertError("An empty data", "You have to add a description")
-            return false
-        }
-        dispatch(workshopActions.addWorkshop(values))
-    }
-
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            name: '',
-            description: ''
+            name: currentlyEditing ? currentlyEditingData.name : '',
+            description: currentlyEditing ? currentlyEditingData.description : ''
         },
         onSubmit: (values) => {
-            validate(values)
+            if (!currentlyEditing) {
+                dispatch(workshopActions.addWorkshop(values))
+            } else {
+                dispatch(workshopActions.editWorkshop(values))
+            }
         }
     })
 
@@ -69,7 +65,19 @@ const ManageWorkshopView = () => {
                         </Col>
                     </Row>
                     <div className='w-100 mt-2 d-flex justify-content-end'>
-                        <button className='btn btn-primary'>CREATE</button>
+                        {
+                          currentlyEditing &&
+                          <button
+                            type='button'
+                            className='btn btn-danger mr-2'
+                            onClick={() => {
+                                dispatch(workshopActions.editWorkshopFailure())
+                            }}
+                          >
+                              Cancel
+                          </button>
+                        }
+                        <button type="submit" className='btn btn-primary'>{currentlyEditing ? 'UPDATE' : 'CREATE'}</button>
                     </div>
                 </Form>
             </CardBody>

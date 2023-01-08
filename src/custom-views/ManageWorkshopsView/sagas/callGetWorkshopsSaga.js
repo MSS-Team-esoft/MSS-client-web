@@ -3,7 +3,7 @@ import axios from "../../../axios/axios"
 import {workshopActions} from "../slice/workshopSlice"
 
 const editWorkshopAsync = async () => {
-  return axios.delete(`/work-shop/fetch`).then(res => res.data)
+  return axios.get(`/workshop/fetch`).then(res => res.data)
 }
 
 export default function* callGetWorkshopsSaga() {

@@ -3,8 +3,38 @@ import {Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, XAxis, YAxis}
 import {ITEM_LEVEL_CHART} from "../../DB/CHART_DB"
 import {Activity, AlertTriangle, Check, DollarSign, Target} from "react-feather"
 import IncomeReportChart from "../../components/IncomerReportView/IncomeReportChart"
+import {useDispatch, useSelector} from "react-redux"
+import {useEffect, useState} from "react"
+import {
+    dashboardActions,
+    selectDashboardCriticalInventory,
+    selectDashboardGoodInventory,
+    selectDashboardWarningInventory
+} from "./slice/dashboardSlice"
+import {incomeActions, selectIncomeMonth} from "../IncomeReportView/slice/incomeReportSlice"
 
 const Dashboard = () => {
+    const dispatch = useDispatch()
+    const [calculatedMonthIncome, setCalculatedMonthIncome] = useState(0)
+    const goodItems = useSelector(selectDashboardGoodInventory)
+    const warningItems = useSelector(selectDashboardWarningInventory)
+    const criticalItems = useSelector(selectDashboardCriticalInventory)
+    const monthIncome = useSelector(selectIncomeMonth)
+
+    useEffect(() => {
+        dispatch(dashboardActions.getDashboardDetails())
+        dispatch(incomeActions.getIncomeLogsDetails())
+    }, [dispatch])
+
+    useEffect(() => {
+        if (monthIncome) {
+            let income = 0
+            monthIncome.map((item) => {
+                income += item.amount
+            })
+            setCalculatedMonthIncome(income)
+        }
+    }, [monthIncome])
 
     return <div>
         <h1 className='f-Staatliches mb-2'>Inventory Section</h1>
@@ -13,7 +43,14 @@ const Dashboard = () => {
                 <Card style={{height: '40vh'}}>
                     <CardBody>
                         <ResponsiveContainer>
-                            <BarChart data={ITEM_LEVEL_CHART}>
+                            <BarChart data={[
+                                {
+                                    name: "Track level",
+                                    good: goodItems.length,
+                                    warning: warningItems.length,
+                                    critical: criticalItems.length
+                                }
+                            ]}>
                                 <CartesianGrid strokeDasharray="3 3"/>
                                 <XAxis dataKey="name"/>
                                 <YAxis/>
@@ -38,7 +75,7 @@ const Dashboard = () => {
                                     <Check size={100} color='rgba(46, 213, 115,1.0)'/>
                                 </div>
                                 <div>
-                                    <b className='text-large text-success'>20 ITEMS</b>
+                                    <b className='text-large text-success'>{goodItems.length} ITEM(S)</b>
                                 </div>
                             </CardBody>
                             <CardFooter className='d-center'>
@@ -55,7 +92,7 @@ const Dashboard = () => {
                                     <AlertTriangle size={100} color='#fbc531'/>
                                 </div>
                                 <div>
-                                    <b className='text-large text-warning'>50 ITEMS</b>
+                                    <b className='text-large text-warning'>{warningItems.length} ITEM(S)</b>
                                 </div>
                             </CardBody>
                             <CardFooter className='d-center'>
@@ -72,7 +109,7 @@ const Dashboard = () => {
                                     <Activity size={100} color='#eb4d4b'/>
                                 </div>
                                 <div>
-                                    <b className='text-large text-danger'>40 ITEMS</b>
+                                    <b className='text-large text-danger'>{criticalItems.length} ITEM(S)</b>
                                 </div>
                             </CardBody>
                             <CardFooter className='d-center'>
@@ -113,7 +150,7 @@ const Dashboard = () => {
                         <div>
                             <b style={{
                                 fontSize: 25
-                            }} className='text-success'>$ 20000/=</b>
+                            }} className='text-success'>{calculatedMonthIncome}/=</b>
                         </div>
                     </CardBody>
                     <CardFooter className='d-center text-grey'>
@@ -130,7 +167,7 @@ const Dashboard = () => {
                         <div>
                             <b style={{
                                 fontSize: 25
-                            }} className='text-primary'>145</b>
+                            }} className='text-primary'>{monthIncome.length}</b>
                         </div>
                     </CardBody>
                     <CardFooter className='d-center text-grey'>

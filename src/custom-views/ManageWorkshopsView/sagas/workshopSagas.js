@@ -10,4 +10,6 @@ export default function* workshopSagas() {
   yield takeLatest(workshopActions.deleteWorkshop, callDeleteWorkshopSaga)
   yield takeLatest(workshopActions.editWorkshop, callEditWorkshopSaga)
   yield takeLatest(workshopActions.getWorkshops, callGetWorkshopsSaga)
+  yield takeLatest(workshopActions.editWorkshopSuccess, callGetWorkshopsSaga)
+  yield takeLatest(workshopActions.deleteWorkshopSuccess, callGetWorkshopsSaga)
 }

@@ -2,7 +2,9 @@ import {createSlice} from "@reduxjs/toolkit"
 
 const initialState = {
   loading: false,
-  employee: []
+  employee: [],
+  currentlyEditing: false,
+  editingData: null
 }
 
 export const employeeSlice = createSlice({
@@ -29,14 +31,22 @@ export const employeeSlice = createSlice({
     getEmployeeFailure(state) {
       state.loading = false
     },
+    setCurrentlyEditing(state, action) {
+      state.currentlyEditing = true
+      state.editingData = action.payload
+    },
     editEmployee(state) {
       state.loading = true
     },
     editEmployeeSuccess(state) {
       state.loading = false
+      state.currentlyEditing = false
+      state.editingData = null
     },
     editEmployeeFailure(state) {
       state.loading = false
+      state.currentlyEditing = false
+      state.editingData = null
     },
     deleteEmployeeFailure(state) {
       state.loading = false
@@ -53,6 +63,8 @@ export const employeeSlice = createSlice({
 export const employeeActions = employeeSlice.actions
 
 export const selectEmployeeLoading = (state) => state.employeeReducer.loading
+export const selectEmployeeCurrentlyEditing = (state) => state.employeeReducer.currentlyEditing
+export const selectEmployeeCurrentlyEditingData = (state) => state.employeeReducer.editingData
 export const selectEmployees = (state) => state.employeeReducer.employee
 
 const employeeReducer = employeeSlice.reducer
