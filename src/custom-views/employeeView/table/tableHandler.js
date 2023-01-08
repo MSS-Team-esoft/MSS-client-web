@@ -55,6 +55,14 @@ export const employeeTableHandler = () => {
             }
         },
         {
+            name: 'ROLE',
+            sortable: true,
+            minWidth: '100px',
+            selector: row => {
+                return row?.role
+            }
+        },
+        {
             name: 'ACTIONS',
             sortable: true,
             minWidth: '100px',

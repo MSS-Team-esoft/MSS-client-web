@@ -1,13 +1,14 @@
-import {Card, CardBody, CardFooter, CardHeader, Col, Row} from "reactstrap"
+import {Card, CardBody, CardFooter, CardHeader, Col, Modal, ModalBody, ModalHeader, Row} from "reactstrap"
 import {Bar, CartesianGrid, ResponsiveContainer, XAxis, YAxis, BarChart, Legend} from "recharts"
 import {Activity, AlertTriangle, Check} from "react-feather"
 import TrackingTable from "./tables/TrackingTable"
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {
     inventoryTrackingActions, selectDashboardCriticalInventory,
     selectDashboardGoodInventory, selectDashboardWarningInventory
 } from "./slice/inventoryTrackingSlice"
+import InventorManagementTable from "../InventoryManagementView/table/InventoryManagementTable"
 
 const StockTrackingView = () => {
     const dispatch = useDispatch()
@@ -15,6 +16,9 @@ const StockTrackingView = () => {
     const warningItems = useSelector(selectDashboardWarningInventory)
     const criticalItems = useSelector(selectDashboardCriticalInventory)
 
+    const [goodOpen, setGoodOpen] = useState(false)
+    const [warningOpen, setWarningOpen] = useState(false)
+    const [criticalOpen, setCriticalOpen] = useState(false)
 
     useEffect(() => {
         dispatch(inventoryTrackingActions.getDashboardDetails())
@@ -61,7 +65,7 @@ const StockTrackingView = () => {
                                     <b className='text-large text-success'>{goodItems.length} ITEM(S)</b>
                                 </div>
                             </CardBody>
-                            <CardFooter className='d-center'>
+                            <CardFooter onClick={() => setGoodOpen(!goodOpen)} className='d-center'>
                                 Click to see items
                             </CardFooter>
                         </Card>
@@ -78,7 +82,7 @@ const StockTrackingView = () => {
                                     <b className='text-large text-warning'>{warningItems.length} ITEM(S)</b>
                                 </div>
                             </CardBody>
-                            <CardFooter className='d-center'>
+                            <CardFooter onClick={() => setWarningOpen(!warningOpen)} className='d-center'>
                                 Click to see items
                             </CardFooter>
                         </Card>
@@ -95,7 +99,7 @@ const StockTrackingView = () => {
                                     <b className='text-large text-danger'>{criticalItems.length} ITEM(S)</b>
                                 </div>
                             </CardBody>
-                            <CardFooter className='d-center'>
+                            <CardFooter onClick={() => setCriticalOpen(!criticalOpen)} className='d-center'>
                                 Click to see items
                             </CardFooter>
                         </Card>
@@ -106,6 +110,54 @@ const StockTrackingView = () => {
         <Row className='mt-2'>
             <TrackingTable />
         </Row>
+
+        {/*--------------------------------------*/}
+        {/*----Good level items modal started----*/}
+        {/*--------------------------------------*/}
+        <Modal size="xl"
+               className='modal-dialog-centered' isOpen={goodOpen} toggle={() => setGoodOpen(!goodOpen)} backdrop={3}>
+            <ModalHeader toggle={() => setGoodOpen(!goodOpen)}>
+                <h3 className='m-0 p-0 f-Staatliches'>STOCK LEVEL: GOOD</h3>
+            </ModalHeader>
+            <ModalBody>
+                <InventorManagementTable stockItems={goodItems}/>
+            </ModalBody>
+        </Modal>
+        {/*---------------------*/}
+        {/*----Good level items modal finished----*/}
+        {/*---------------------*/}
+
+        {/*--------------------------------------*/}
+        {/*----Good level items modal started----*/}
+        {/*--------------------------------------*/}
+        <Modal size="xl"
+               className='modal-dialog-centered' isOpen={warningOpen} toggle={() => setWarningOpen(!warningOpen)} backdrop={3}>
+            <ModalHeader toggle={() => setWarningOpen(!warningOpen)}>
+                <h3 className='m-0 p-0 f-Staatliches'>STOCK LEVEL: WARNING</h3>
+            </ModalHeader>
+            <ModalBody>
+                <InventorManagementTable stockItems={warningItems}/>
+            </ModalBody>
+        </Modal>
+        {/*---------------------*/}
+        {/*----Good level items modal finished----*/}
+        {/*---------------------*/}
+
+        {/*--------------------------------------*/}
+        {/*----Good level items modal started----*/}
+        {/*--------------------------------------*/}
+        <Modal size="xl"
+               className='modal-dialog-centered' isOpen={criticalOpen} toggle={() => setCriticalOpen(!criticalOpen)} backdrop={3}>
+            <ModalHeader toggle={() => setCriticalOpen(!criticalOpen)}>
+                <h3 className='m-0 p-0 f-Staatliches'>STOCK LEVEL: CRITICAL</h3>
+            </ModalHeader>
+            <ModalBody>
+                <InventorManagementTable stockItems={goodItems}/>
+            </ModalBody>
+        </Modal>
+        {/*---------------------*/}
+        {/*----Good level items modal finished----*/}
+        {/*---------------------*/}
     </div>
 }
 

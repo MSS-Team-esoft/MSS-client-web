@@ -7,8 +7,6 @@ import {
     Row
 } from 'reactstrap'
 import {inventoryTableHandler} from "./tableHandler"
-import {useSelector} from "react-redux"
-import {selectInventoryItems} from "../slice/inventorySlice"
 
 const BootstrapCheckbox = forwardRef((props, ref) => (
     <div className='form-check'>
@@ -21,12 +19,11 @@ const onChangeHandle = (userdata) => {
     console.log(userdata)
 }
 
-const InventorManagementTable = () => {
+const InventorManagementTable = ({stockItems}) => {
     // ** States
     const [currentPage, setCurrentPage] = useState(0)
     const [searchValue] = useState('')
     const [filteredData] = useState([])
-    const stockItems = useSelector(selectInventoryItems)
 
     // ** Function to handle Pagination
     const handlePagination = page => {

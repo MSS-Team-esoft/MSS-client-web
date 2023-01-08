@@ -1,10 +1,13 @@
 import {Badge, Card, CardBody, CardHeader, Col, Input, Label, Modal, ModalBody, ModalHeader, Row} from "reactstrap"
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import WorkItemsTable from "./table/WorkItemsTable"
 import Select from "react-select"
 import {Circle, PlusSquare} from "react-feather"
 import EmployeeStatChart from "../../components/EmployeeStatChart/EmployeeStatChart"
 import {EMPLOYEE_DROP_DOWN, EMPLOYEE_MOCK_DB} from "../../DB/DB"
+import {useDispatch, useSelector} from "react-redux"
+import {inventoryActions, selectInventoryItems} from "../InventoryManagementView/slice/inventorySlice"
+import {dropdownPopulate, fireAlertError} from "../../utility/customUtils"
 
 const sheet = {
     effBanner: {
@@ -19,16 +22,32 @@ const WorkCreateUnitView = () => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     // eslint-disable-next-line no-unused-vars
-    const [item, setItem] = useState('')
+    const [item, setItem] = useState()
     const [qty, setQty] = useState(0)
     // eslint-disable-next-line no-unused-vars
     const [worker, setWorker] = useState()
     const [open, setOpen] = useState(false)
+    // eslint-disable-next-line no-unused-vars
+    const [options, setOptions] = useState([])
 
-    // const fireAlert = () => {
-    //     fireAlertCustom("An empty field detected !", "You have to add a title to create a task", 'error')
-        // fireAlertCustom("Task creation success !", "You have created a new task", 'success')
-    // }
+    const [workItems, setWorkItems] = useState([])
+
+    const dispatch = useDispatch()
+
+    const stockItems = useSelector(selectInventoryItems)
+
+    useEffect(() => {
+        dispatch(inventoryActions.getItems())
+    }, [])
+
+    useEffect(() => {
+        setOptions(dropdownPopulate(stockItems, "item_name", "id"))
+    }, [stockItems])
+
+    const addItems = () => {
+        if (qty === 0) fireAlertError('Not enough quantity', "You have to add more quantity for the item")
+        else setWorkItems(workItems.concat(stockItems[item]))
+    }
 
     return <Card>
         <CardHeader className='bg-gradient-primary f-Staatliches font-large-1'>
@@ -94,8 +113,9 @@ const WorkCreateUnitView = () => {
                 <Col lg={3}>
                     <Label htmlFor='item' className='text-small-extra'>Select Item</Label>
                     <Select
+                        options={options}
                         id='item'
-                        onChange={e => setItem(e.value)}
+                        onChange={e => setItem(e.index)}
                     />
                 </Col>
 
@@ -111,13 +131,15 @@ const WorkCreateUnitView = () => {
                     />
                 </Col>
                 <Col>
-                    <button className='btn btn-primary'>
+                    <button
+                        onClick={addItems}
+                        className='btn btn-primary'>
                         <PlusSquare />
                     </button>
                 </Col>
             </div>
             <Row className='mt-2'>
-                <WorkItemsTable />
+                <WorkItemsTable data={workItems}/>
             </Row>
             <div className='mt-2 d-flex justify-content-end'>
                 <button
