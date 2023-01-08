@@ -11,9 +11,9 @@ import {useEffect} from "react"
 
 const DivisionsView = () => {
     const dispatch = useDispatch()
-    const currentlyEditing = useSelector(selectDepartmentCurrentlyEditing)
+const currentlyEditing = useSelector(selectDepartmentCurrentlyEditing)
     const currentlyEditingData = useSelector(selectDepartmentCurrentlyEditingData)
-    
+
     useEffect(() => {
         dispatch(departmentActions.getDepartments())
     }, [dispatch])

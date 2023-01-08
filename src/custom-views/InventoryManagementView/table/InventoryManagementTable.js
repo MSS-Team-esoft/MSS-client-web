@@ -7,7 +7,6 @@ import {
     Row
 } from 'reactstrap'
 import {inventoryTableHandler} from "./tableHandler"
-import {ITEMS_MOCK_DB} from "../../../DB/DB"
 import {useSelector} from "react-redux"
 import {selectInventoryItems} from "../slice/inventorySlice"
 
@@ -41,7 +40,7 @@ const InventorManagementTable = () => {
             nextLabel=''
             forcePage={currentPage}
             onPageChange={page => handlePagination(page)}
-            pageCount={searchValue.length ? Math.ceil(filteredData.length / 10) : Math.ceil(ITEMS_MOCK_DB.length / 10) || 1}
+            pageCount={searchValue.length ? Math.ceil(filteredData.length / 10) : Math.ceil(stockItems.length / 10) || 1}
             breakLabel='...'
             pageRangeDisplayed={2}
             marginPagesDisplayed={2}

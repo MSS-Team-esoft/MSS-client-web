@@ -11,9 +11,9 @@ import {useEffect} from "react"
 
 const ManageWorkshopView = () => {
     const dispatch = useDispatch()
-    const currentlyEditing = useSelector(selectWorkshopCurrentlyEditing)
+const currentlyEditing = useSelector(selectWorkshopCurrentlyEditing)
     const currentlyEditingData = useSelector(selectWorkshopCurrentlyEditingData)
-    
+
     useEffect(() => {
         dispatch(workshopActions.getWorkshops())
     }, [dispatch])
@@ -32,7 +32,7 @@ const ManageWorkshopView = () => {
             }
         }
     })
-    
+
     return <div>
         <Card>
             <CardHeader className='p-1 m-0 bg-gradient-primary font-large-1 f-Staatliches'>

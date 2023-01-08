@@ -11,9 +11,9 @@ import {useEffect} from "react"
 
 const EmployeeView = () => {
     const dispatch = useDispatch()
-    const currentlyEditing = useSelector(selectEmployeeCurrentlyEditing)
+const currentlyEditing = useSelector(selectEmployeeCurrentlyEditing)
     const currentlyEditingData = useSelector(selectEmployeeCurrentlyEditingData)
-    
+
     useEffect(() => {
         dispatch(employeeActions.getEmployees())
     }, [dispatch])
