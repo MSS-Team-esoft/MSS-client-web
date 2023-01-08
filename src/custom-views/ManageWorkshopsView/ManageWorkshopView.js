@@ -4,13 +4,28 @@ import {useFormik} from "formik"
 import {workshopActions} from "./slice/workshopSlice"
 import {useDispatch} from "react-redux"
 import {useEffect} from "react"
+import {fireAlertError} from "../../utility/customUtils"
 
 const ManageWorkshopView = () => {
     const dispatch = useDispatch()
-    
+
     useEffect(() => {
         dispatch(workshopActions.getWorkshops())
     }, [dispatch])
+
+    const validate = (values) => {
+
+        if (!values?.name) {
+            fireAlertError("An empty data", "You have to add a name")
+            return false
+        }
+
+        if (!values?.description) {
+            fireAlertError("An empty data", "You have to add a description")
+            return false
+        }
+        dispatch(workshopActions.addWorkshop(values))
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -18,10 +33,10 @@ const ManageWorkshopView = () => {
             description: ''
         },
         onSubmit: (values) => {
-            dispatch(workshopActions.addWorkshop(values))
+            validate(values)
         }
     })
-    
+
     return <div>
         <Card>
             <CardHeader className='p-1 m-0 bg-gradient-primary font-large-1 f-Staatliches'>

@@ -4,13 +4,28 @@ import {useFormik} from "formik"
 import {useDispatch} from "react-redux"
 import {departmentActions} from "./slice/departmentSlice"
 import {useEffect} from "react"
+import {fireAlertError} from "../../utility/customUtils"
 
 const DivisionsView = () => {
     const dispatch = useDispatch()
-    
+
     useEffect(() => {
         dispatch(departmentActions.getDepartments())
     }, [dispatch])
+
+    const validate = (values) => {
+
+        if (!values?.name) {
+            fireAlertError("An empty data", "You have to add a name")
+            return false
+        }
+
+        if (!values?.description) {
+            fireAlertError("An empty data", "You have to add a description")
+            return false
+        }
+        dispatch(departmentActions.addDepartment(values))
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -18,7 +33,7 @@ const DivisionsView = () => {
             description: ''
         },
         onSubmit: (values) => {
-            dispatch(departmentActions.addDepartment(values))
+            validate(values)
         }
     })
 
