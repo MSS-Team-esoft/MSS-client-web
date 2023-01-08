@@ -3,12 +3,12 @@ import axios from "../../../axios/axios"
 import {employeeActions} from "../slice/employeeSlice"
 
 const editEmployeeAsync = async () => {
-  return axios.delete(`/employee/fetch`).then(res => res.data)
+  return axios.get(`/employee/fetch`).then(res => res.data)
 }
 
 export default function* callGetEmployeesSaga() {
   try {
-    const response = yield call(editEmployeeAsync())
+    const response = yield call(editEmployeeAsync)
     yield put(employeeActions.saveEmployees(response))
   } catch (e) {
     console.error(e)

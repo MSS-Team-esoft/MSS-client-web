@@ -23,6 +23,7 @@ import requestingReducer from "@src/custom-views/StockRequestingView/slice/reque
 import incomeReportReducer from "@src/custom-views/IncomeReportView/slice/incomeReportSlice"
 import inventoryTrackingReducer from "@src/custom-views/StockTrackingView/slice/inventoryTrackingSlice"
 import createWorkReducer from "@src/custom-views/WorkCreateUnitView/slice/createWorkSlice"
+import dashboardReducer from "@src/custom-views/dashboard/slice/dashboardSlice"
 
 const rootReducer = combineReducers({
   authenticationReducer,
@@ -47,7 +48,8 @@ const rootReducer = combineReducers({
   requestingReducer,
   incomeReportReducer,
   inventoryTrackingReducer,
-  createWorkReducer
+  createWorkReducer,
+  dashboardReducer
 })
 
 export default rootReducer

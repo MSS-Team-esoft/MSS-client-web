@@ -3,7 +3,7 @@ import axios from "../../../axios/axios"
 import {departmentActions} from "../slice/departmentSlice"
 
 const editDepartmentAsync = async () => {
-  return axios.delete(`/department/fetch`).then(res => res.data)
+  return axios.get(`/department/fetch`).then(res => res.data)
 }
 
 export default function* callGetDepartmentsSaga() {

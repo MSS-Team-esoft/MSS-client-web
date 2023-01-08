@@ -1,27 +1,38 @@
 import {Button, Card, CardBody, CardHeader, Col, Form, Input, Label, Row} from "reactstrap"
 import EmployeeManagementTable from "./table/EmployeeManagementTable"
 import {useFormik} from "formik"
-import {useDispatch} from "react-redux"
-import {employeeActions} from "./slice/employeeSlice"
+import {useDispatch, useSelector} from "react-redux"
+import {
+    employeeActions,
+    selectEmployeeCurrentlyEditing,
+    selectEmployeeCurrentlyEditingData
+} from "./slice/employeeSlice"
 import {useEffect} from "react"
 
 const EmployeeView = () => {
     const dispatch = useDispatch()
+    const currentlyEditing = useSelector(selectEmployeeCurrentlyEditing)
+    const currentlyEditingData = useSelector(selectEmployeeCurrentlyEditingData)
     
     useEffect(() => {
         dispatch(employeeActions.getEmployees())
     }, [dispatch])
 
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            name: '',
-            gender: '',
-            dob: '',
-            address: '',
-            telNo: ''
+            name: currentlyEditing ? currentlyEditingData.name : '',
+            gender: currentlyEditing ? currentlyEditingData.gender : '',
+            dob: currentlyEditing ? currentlyEditingData.dob : '',
+            address: currentlyEditing ? currentlyEditingData.address : '',
+            telNo: currentlyEditing ? currentlyEditingData.telephone_number : ''
         },
         onSubmit: (values) => {
-            dispatch(employeeActions.addEmployee(values))
+            if (!currentlyEditing) {
+                dispatch(employeeActions.addEmployee(values))
+            } else {
+                dispatch(employeeActions.editEmployee(values))
+            }
         }
     })
 
@@ -75,6 +86,7 @@ const EmployeeView = () => {
                     <Row className='mt-4'>
                         <Col lg={1}>
                             <Input
+                                checked={formik.values.gender === 'male'}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 name='gender' id='male' value="male" type='radio'/>
@@ -82,6 +94,7 @@ const EmployeeView = () => {
                         </Col>
                         <Col lg={1}>
                             <Input
+                                checked={formik.values.gender === 'female'}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 name='gender' id='female' value="female" type='radio'/>
@@ -89,7 +102,19 @@ const EmployeeView = () => {
                         </Col>
                     </Row>
                     <div className='w-100 mt-2 d-flex justify-content-end'>
-                        <button type='submit' className='btn btn-primary'>REGISTER</button>
+                        {
+                          currentlyEditing &&
+                          <button
+                            type='button'
+                            className='btn btn-danger mr-2'
+                            onClick={() => {
+                                dispatch(employeeActions.editEmployeeFailure())
+                            }}
+                          >
+                              Cancel
+                          </button>
+                        }
+                        <button type="submit" className='btn btn-primary'>{currentlyEditing ? 'UPDATE' : 'REGISTER'}</button>
                     </div>
                 </Form>
             </CardBody>

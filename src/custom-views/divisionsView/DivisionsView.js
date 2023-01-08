@@ -1,24 +1,35 @@
 import {Button, Card, CardBody, CardHeader, Col, Form, Input, Label, Row} from "reactstrap"
 import DivisionManagementTable from "./table/DivisionManagementTable"
 import {useFormik} from "formik"
-import {useDispatch} from "react-redux"
-import {departmentActions} from "./slice/departmentSlice"
+import {useDispatch, useSelector} from "react-redux"
+import {
+    departmentActions,
+    selectDepartmentCurrentlyEditing,
+    selectDepartmentCurrentlyEditingData
+} from "./slice/departmentSlice"
 import {useEffect} from "react"
 
 const DivisionsView = () => {
     const dispatch = useDispatch()
+    const currentlyEditing = useSelector(selectDepartmentCurrentlyEditing)
+    const currentlyEditingData = useSelector(selectDepartmentCurrentlyEditingData)
     
     useEffect(() => {
         dispatch(departmentActions.getDepartments())
     }, [dispatch])
 
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            name: '',
-            description: ''
+            name: currentlyEditing ? currentlyEditingData.name : '',
+            description: currentlyEditing ? currentlyEditingData.description : ''
         },
         onSubmit: (values) => {
-            dispatch(departmentActions.addDepartment(values))
+            if (!currentlyEditing) {
+                dispatch(departmentActions.addDepartment(values))
+            } else {
+                dispatch(departmentActions.editDepartment(values))
+            }
         }
     })
 
@@ -54,7 +65,19 @@ const DivisionsView = () => {
                         </Col>
                     </Row>
                     <div className='w-100 mt-2 d-flex justify-content-end'>
-                        <button type="submit" className='btn btn-primary'>CREATE</button>
+                        {
+                          currentlyEditing &&
+                          <button
+                            type='button'
+                            className='btn btn-danger mr-2'
+                            onClick={() => {
+                                dispatch(departmentActions.editDepartmentFailure())
+                            }}
+                          >
+                              Cancel
+                          </button>
+                        }
+                        <button type="submit" className='btn btn-primary'>{currentlyEditing ? 'UPDATE' : 'CREATE'}</button>
                     </div>
                 </Form>
             </CardBody>

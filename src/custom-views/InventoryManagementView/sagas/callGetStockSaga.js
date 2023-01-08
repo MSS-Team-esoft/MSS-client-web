@@ -1,6 +1,7 @@
 import {inventoryActions} from "../slice/inventorySlice"
 import {call, put} from "redux-saga/effects"
 import axios from "../../../axios/axios"
+import {errorMessage} from "../../../utility/alerts"
 
 const getItemsAsync = async () => {
   return axios.get(`/inventory/get-all/0`).then(res => res.data)
@@ -13,5 +14,6 @@ export default function* callGetStockSaga() {
   } catch (e) {
     console.error(e)
     yield put(inventoryActions.getItemsFailure())
+    errorMessage('Something went wrong!')
   }
 }

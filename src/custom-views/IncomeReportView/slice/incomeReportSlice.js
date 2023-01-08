@@ -2,9 +2,9 @@ import {createSlice} from "@reduxjs/toolkit"
 
 const initialState = {
   loading: false,
-  incomeYear: null,
-  incomeMonth: null,
-  incomeStats: null,
+  incomeYear: [],
+  incomeMonth: [],
+  incomeStats: [],
   logs: []
 }
 
@@ -17,10 +17,10 @@ export const incomeReportSlice = createSlice({
     },
     saveIncomeDetails(state, action) {
       state.loading = false
-      state.incomeYear = action.payload.incomeYear
+      state.incomeYear = action.payload.totalIncomeYear
       state.incomeMonth = action.payload.incomeMonth
-      state.incomeStats = action.payload.incomeStats
-      state.logs = action.payload.logs
+      state.incomeStats = action.payload.totalIncomeStats
+      state.logs = action.payload.incomeLogs
     },
     getIncomeDetailsFailure(state) {
       state.loading = true
@@ -50,7 +50,9 @@ export const incomeReportSlice = createSlice({
 export const incomeActions = incomeReportSlice.actions
 
 export const selectIncomeLoading = (state) => state.incomeReportReducer.loading
-export const selectIncome = (state) => state.incomeReportReducer.income
+export const selectIncomeYear = (state) => state.incomeReportReducer.incomeYear
+export const selectIncomeMonth = (state) => state.incomeReportReducer.incomeMonth
+export const selectIncomeStats = (state) => state.incomeReportReducer.incomeStats
 export const selectIncomeLogs = (state) => state.incomeReportReducer.logs
 
 const incomeReportReducer = incomeReportSlice.reducer
