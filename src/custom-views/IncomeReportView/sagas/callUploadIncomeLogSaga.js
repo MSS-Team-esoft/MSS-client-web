@@ -3,9 +3,10 @@ import {call, put} from "redux-saga/effects"
 import axios from "../../../axios/axios"
 import {incomeActions} from "../slice/incomeReportSlice"
 import {errorMessage, successMessage} from "../../../utility/alerts"
+import {jsonToFormData} from "../../../utility/customUtils";
 
 const uploadIncomeLogAsync = async (data) => {
-  const formData = new FormData();
+  const formData = jsonToFormData(data)
   formData.append("report", data)
   return axios.post('/income/upload-report', formData, {
     headers: {
