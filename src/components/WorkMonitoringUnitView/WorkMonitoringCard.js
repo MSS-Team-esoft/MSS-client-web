@@ -4,7 +4,7 @@ import InventorManagementTable from "./table/table/InventoryManagementTable"
 import {useDispatch} from "react-redux"
 import {createWorkActions} from "../../custom-views/WorkCreateUnitView/slice/createWorkSlice"
 
-const WorkMonitoringCard = ({title, description, createdAt, deadlineAt, id}) => {
+const WorkMonitoringCard = ({title, description, createdAt, deadlineAt, id, status}) => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
 
@@ -35,19 +35,18 @@ const WorkMonitoringCard = ({title, description, createdAt, deadlineAt, id}) => 
             <ModalHeader toggle={() => setOpen(!open)}>Jack Ryder's: Work Task</ModalHeader>
             <ModalBody className='pt-2'>
                 <div className='d-flex gap-2'>
-                    <p className='text-small text-grey'>Created At: 2022/02/12</p>
-                    <p className='text-small text-grey'>Deadline At: 2022/02/12</p>
+                    <p className='text-small text-grey'>Created At: {createdAt}</p>
+                    <p className='text-small text-grey'>Deadline At: {deadlineAt}</p>
                 </div>
                 <Row>
                     <Col lg={10}>
-                        <h3>Build 10 lock bearers</h3>
+                        <h3>{title}</h3>
                     </Col>
                     <Col lg={2} className='d-flex justify-content-center align-items-baseline'>
-                        <Badge color='light-primary clickable'>{'TODO'}</Badge>
+                        <Badge color='light-primary clickable text-uppercase'>{status}</Badge>
                     </Col>
                 </Row>
-                <p className='mt-2'>Craft 10 lock bearers using the A-17 type cutter.
-                    All the bearers must be sealed. After finish crafting polish all the bearers.</p>
+                <p className='mt-2'>{description}</p>
                 <h4 className='text-medium text-decoration-underline mt-3'>Assigned Materials</h4>
                 <div className='mt-2'>
                     <InventorManagementTable />
