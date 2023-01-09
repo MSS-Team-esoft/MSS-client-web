@@ -31,7 +31,7 @@ const WorkMonitoringView = () => {
         <div className='d-flex gap-1 mt-2 justify-content-start flex-wrap'>
             {
                 employees?.map((e) => {
-                    return <Col key={e?.id} onClick={() => routeToUnit(e?.id, e?.name)} lg={2}><UnitCard name={e?.name}/></Col>
+                    return e.role === 'employee' && <Col key={e?.id} onClick={() => routeToUnit(e?.id, e?.name)} lg={2}><UnitCard name={e?.name}/></Col>
                 })
             }
         </div>

@@ -4,7 +4,7 @@ import {errorMessage, successMessage} from "../../../utility/alerts"
 import {createWorkActions} from "../slice/createWorkSlice"
 
 const addDepartmentAsync = async (data) => {
-  return axios.post(' /work-monitoring/task/create', data).then(res => res.data)
+  return axios.post('/work-monitoring/create', data).then(res => res.data)
 }
 
 export default function* callCreateTaskSaga({payload}) {
