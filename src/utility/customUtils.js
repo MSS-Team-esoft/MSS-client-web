@@ -44,7 +44,12 @@ export const fireAlertSuccess = (title, msg) => {
 export const jsonToFormData = (obj) => {
     const formData = new FormData()
     Object.keys(obj).map(async e => {
-        await formData.append(e, obj[e])
+
+        if (Array.isArray(obj[e])) { //Check whether the property is an array or not
+            obj[e].map(async (res, index) => {
+                await formData.append(`${e}[${index}]`, res)
+            })
+        } else await formData.append(e, obj[e])
     })
     return formData
 }
