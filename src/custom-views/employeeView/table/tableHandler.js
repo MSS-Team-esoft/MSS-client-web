@@ -31,6 +31,14 @@ export const employeeTableHandler = () => {
             }
         },
         {
+            name: 'EMAIL',
+            sortable: true,
+            minWidth: '250px',
+            selector: row => {
+                return row?.email
+            }
+        },
+        {
             name: 'GENDER',
             sortable: true,
             minWidth: '100px',

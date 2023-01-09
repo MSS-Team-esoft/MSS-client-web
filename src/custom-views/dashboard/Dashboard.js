@@ -10,8 +10,10 @@ import {
     selectDashboardGoodInventory,
     selectDashboardWarningInventory
 } from "./slice/dashboardSlice"
-import {incomeActions, selectIncomeMonth} from "../IncomeReportView/slice/incomeReportSlice"
+import {incomeActions, selectIncomeMonth, selectIncomeStats} from "../IncomeReportView/slice/incomeReportSlice"
 import InventorManagementTable from "../InventoryManagementView/table/InventoryManagementTable"
+import XLSX from "xlsx"
+import * as xlsx from "sheetjs-style"
 
 const Dashboard = () => {
     const dispatch = useDispatch()
@@ -20,6 +22,7 @@ const Dashboard = () => {
     const warningItems = useSelector(selectDashboardWarningInventory)
     const criticalItems = useSelector(selectDashboardCriticalInventory)
     const monthIncome = useSelector(selectIncomeMonth)
+    const incomeStats = useSelector(selectIncomeStats)
 
     const [goodOpen, setGoodOpen] = useState(false)
     const [warningOpen, setWarningOpen] = useState(false)
@@ -30,6 +33,8 @@ const Dashboard = () => {
         dispatch(incomeActions.getIncomeLogsDetails())
     }, [dispatch])
 
+    // const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8"
+
     useEffect(() => {
         if (monthIncome) {
             let income = 0
@@ -39,6 +44,38 @@ const Dashboard = () => {
             setCalculatedMonthIncome(income)
         }
     }, [monthIncome])
+
+    const handleItemsType = (status) => {
+        switch (status) {
+            case 1: return goodItems
+            case 2: return warningItems
+            case 3: return criticalItems
+            default: return goodItems
+        }
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    const genStockReport = (type, fileName) => {
+
+        const workbook = xlsx.utils.book_new()
+        const ws = xlsx.utils.json_to_sheet(type)
+        xlsx.utils.book_append_sheet(workbook, ws, "Results")
+        xlsx.writeFile(workbook, `${fileName}.xlsx`, {type: 'file'})
+    }
+
+    const generateIncomeReport = (fileName) => {
+        const workbook = xlsx.utils.book_new()
+        const ws = xlsx.utils.json_to_sheet(calculatedMonthIncome)
+        xlsx.utils.book_append_sheet(workbook, ws, "Results")
+        xlsx.writeFile(workbook, `${fileName}.xlsx`, {type: 'file'})
+    }
+
+    const generateIncomeMovementReport = (fileName) => {
+        const workbook = xlsx.utils.book_new()
+        const ws = xlsx.utils.json_to_sheet(incomeStats)
+        xlsx.utils.book_append_sheet(workbook, ws, "Results")
+        xlsx.writeFile(workbook, `${fileName}.xlsx`, {type: 'file'})
+    }
 
     return <div>
         <h1 className='f-Staatliches mb-2'>Inventory Section</h1>
@@ -125,18 +162,34 @@ const Dashboard = () => {
             </div>
         </Row>
         <Row className='d-flex align-items-baseline'>
-            <Col lg={4}>
+            <Col lg={3}>
                 <Card className='btn'>
                     <CardBody className='d-center align-items-baseline'>
-                        <p className='text-medium m-0 p-0'>This month added items :</p>
+                        <p className='text-medium m-0 p-0'>This month items:</p>
                         <h4 className='ml-2 mb-0 p-0 font-bold'>12 items</h4>
                     </CardBody>
                 </Card>
             </Col>
             <Col lg={3}>
-                <Card className='btn btn-gradient-primary'>
-                    <CardBody className='d-center align-items-baseline'>
-                        <p className='text-medium m-0 p-0'>Generate Stock Report</p>
+                <Card className='btn btn-gradient-success'>
+                    <CardBody onClick={() => genStockReport(handleItemsType(1), "success-stock")} className='d-center align-items-baseline'>
+                        <p className='text-medium m-0 p-0'>Success Stock Report</p>
+                    </CardBody>
+                </Card>
+            </Col>
+
+            <Col lg={3}>
+                <Card className='btn btn-gradient-warning'>
+                    <CardBody onClick={() => genStockReport(handleItemsType(2), "warning-stock")} className='d-center align-items-baseline'>
+                        <p className='text-medium m-0 p-0'>Warning Stock Report</p>
+                    </CardBody>
+                </Card>
+            </Col>
+
+            <Col lg={3}>
+                <Card className='btn btn-gradient-danger'>
+                    <CardBody onClick={() => genStockReport(handleItemsType(3), "critical-stock")} className='d-center align-items-baseline'>
+                        <p className='text-medium m-0 p-0'>Danger Stock Report</p>
                     </CardBody>
                 </Card>
             </Col>
@@ -179,13 +232,13 @@ const Dashboard = () => {
                     </CardFooter>
                 </Card>
 
-                <Card className='btn btn-gradient-primary'>
+                <Card onClick={() => generateIncomeReport('income-report')} className='btn btn-gradient-primary'>
                     <CardBody className='d-center align-items-baseline'>
-                        <p className='text-medium m-0 p-0'>Generate This month Income Report</p>
+                        <p className='text-medium m-0 p-0'>Generate Income Report</p>
                     </CardBody>
                 </Card>
 
-                <Card className='btn btn-gradient-success'>
+                <Card onClick={() => generateIncomeMovementReport('income-movement')} className='btn btn-gradient-success'>
                     <CardBody className='d-center align-items-baseline'>
                         <p className='text-medium m-0 p-0'>Generate income movement</p>
                     </CardBody>
