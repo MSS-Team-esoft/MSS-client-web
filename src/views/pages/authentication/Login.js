@@ -76,6 +76,7 @@ const Login = () => {
 
     // eslint-disable-next-line no-unused-vars
     const onSubmit = data => {
+        console.log(data)
         dispatch(authenticationActions.signIn({email: data.loginEmail, password: data.password}, history))
         if (Object.values(data).every(field => field.length > 0)) {
             useJwt
