@@ -4,10 +4,11 @@ import WorkItemsTable from "./table/WorkItemsTable"
 import Select from "react-select"
 import {Circle, PlusSquare} from "react-feather"
 import EmployeeStatChart from "../../components/EmployeeStatChart/EmployeeStatChart"
-import {EMPLOYEE_DROP_DOWN, EMPLOYEE_MOCK_DB} from "../../DB/DB"
+import {EMPLOYEE_DROP_DOWN} from "../../DB/DB"
 import {useDispatch, useSelector} from "react-redux"
 import {inventoryActions, selectInventoryItems} from "../InventoryManagementView/slice/inventorySlice"
 import {dropdownPopulate, fireAlertError} from "../../utility/customUtils"
+import {createWorkActions, selectWorkers} from "./slice/createWorkSlice"
 
 const sheet = {
     effBanner: {
@@ -22,6 +23,10 @@ const WorkCreateUnitView = () => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     // eslint-disable-next-line no-unused-vars
+    const [startDate, setStartDate] = useState('')
+    // eslint-disable-next-line no-unused-vars
+    const [endDate, setEndDate] = useState('')
+    // eslint-disable-next-line no-unused-vars
     const [item, setItem] = useState()
     const [qty, setQty] = useState(0)
     // eslint-disable-next-line no-unused-vars
@@ -35,9 +40,11 @@ const WorkCreateUnitView = () => {
     const dispatch = useDispatch()
 
     const stockItems = useSelector(selectInventoryItems)
+    const workers = useSelector(selectWorkers)
 
     useEffect(() => {
         dispatch(inventoryActions.getItems())
+        dispatch(createWorkActions.getData())
     }, [])
 
     useEffect(() => {
@@ -47,6 +54,21 @@ const WorkCreateUnitView = () => {
     const addItems = () => {
         if (qty === 0) fireAlertError('Not enough quantity', "You have to add more quantity for the item")
         else setWorkItems(workItems.concat(stockItems[item]))
+    }
+
+    const handleSubmit = () => {
+        const items = workItems.map(item => {
+            return {item: item.id, quantity: Number(item.quantity)}
+        })
+
+        dispatch(createWorkActions.createTask({
+            title,
+            description,
+            startDate,
+            endDate,
+            employee_id: worker,
+            items
+        }))
     }
 
     return <Card>
@@ -80,6 +102,7 @@ const WorkCreateUnitView = () => {
                         name='startDate'
                         type='date'
                         id='startDate'
+                        onChange={e => setStartDate(e.target.value)}
                     />
                 </Col>
 
@@ -89,13 +112,19 @@ const WorkCreateUnitView = () => {
                         name='endDate'
                         type='date'
                         id='endDate'
+                        onChange={e => setEndDate(e.target.value)}
                     />
                 </Col>
 
                 <Col lg={3}>
                     <Label htmlFor='assignWorker' className='text-small-extra'>Assign Worker</Label>
                     <Select
-                        options={EMPLOYEE_DROP_DOWN}
+                        options={workers.map(worker => {
+                            return {
+                                value: worker.id,
+                                label: worker.name
+                            }
+                        })}
                         onChange={e => setWorker(e.value)}
                         name='assignWorker'
                         id='assignWorker'
@@ -143,7 +172,9 @@ const WorkCreateUnitView = () => {
             </Row>
             <div className='mt-2 d-flex justify-content-end'>
                 <button
-                    className='f-Staatliches btn text-large btn-gradient-primary'>
+                    className='f-Staatliches btn text-large btn-gradient-primary'
+                    onClick={handleSubmit}
+                >
                     CREATE NEW TASK
                 </button>
             </div>

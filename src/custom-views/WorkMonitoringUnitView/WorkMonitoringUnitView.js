@@ -2,40 +2,104 @@ import {Card, CardBody, CardHeader, Col, Row} from "reactstrap"
 import WorkMonitoringCard from "../../components/WorkMonitoringUnitView/WorkMonitoringCard"
 import {useLocation} from "react-router-dom"
 import * as xlsx from "sheetjs-style"
-// import * as xlsx from "sheetjs-style"
+import {useEffect} from "react"
+import {useDispatch, useSelector} from "react-redux"
+import {createWorkActions, selectTasks, selectUserId} from "../WorkCreateUnitView/slice/createWorkSlice"
 
 const WorkMonitoringUnitView = () => {
-
     const location = useLocation()
+    const dispatch = useDispatch()
+    const {id, name} = location.state.data
+    const tasks = useSelector(selectTasks)
+    const userId = useSelector(selectUserId)
 
-    // eslint-disable-next-line no-unused-vars
-    const generateTodo = (fileName) => {
+    const generateEmployeeTaskReport = () => {
+        const updatedTasks = tasks.map(item => {
+            return {
+                id: item?.id,
+                status: item?.status,
+                title: item?.work_monitoring_task_id.title,
+                description:  item?.work_monitoring_task_id.description,
+                created_at: new Date(item?.work_monitoring_task_id?.created_at).toLocaleDateString(),
+                updated_at: new Date(item?.work_monitoring_task_id?.updated_at).toLocaleDateString()
+            }
+        })
         const workbook = xlsx.utils.book_new()
-        const ws = xlsx.utils.json_to_sheet(incomeStats)
+        const ws = xlsx.utils.json_to_sheet(updatedTasks)
         xlsx.utils.book_append_sheet(workbook, ws, "Results")
-        xlsx.writeFile(workbook, `${fileName}.xlsx`, {type: 'file'})
+        xlsx.writeFile(workbook, `employee-tasks.xlsx`, {type: 'file'})
     }
 
-    // eslint-disable-next-line no-unused-vars
-    const generateWarning = (fileName) => {
+    const generateTodo = () => {
+        const updatedTasks = tasks.filter((fil) => fil.status === 'todo').map(item => {
+            return {
+                id: item?.id,
+                status: item?.status,
+                title: item?.work_monitoring_task_id.title,
+                description:  item?.work_monitoring_task_id.description,
+                created_at: new Date(item?.work_monitoring_task_id?.created_at).toLocaleDateString(),
+                updated_at: new Date(item?.work_monitoring_task_id?.updated_at).toLocaleDateString()
+            }
+        })
         const workbook = xlsx.utils.book_new()
-        const ws = xlsx.utils.json_to_sheet(incomeStats)
+        const ws = xlsx.utils.json_to_sheet(updatedTasks)
         xlsx.utils.book_append_sheet(workbook, ws, "Results")
-        xlsx.writeFile(workbook, `${fileName}.xlsx`, {type: 'file'})
+        xlsx.writeFile(workbook, `todoTask.xlsx`, {type: 'file'})
     }
 
-    // eslint-disable-next-line no-unused-vars
-    const generateSuccess = (fileName) => {
+    const generateOngoing = () => {
+        const updatedTasks = tasks.filter((fil) => fil.status === 'ongoing').map(item => {
+            return {
+                id: item?.id,
+                status: item?.status,
+                title: item?.work_monitoring_task_id.title,
+                description:  item?.work_monitoring_task_id.description,
+                created_at: new Date(item?.work_monitoring_task_id?.created_at).toLocaleDateString(),
+                updated_at: new Date(item?.work_monitoring_task_id?.updated_at).toLocaleDateString()
+            }
+        })
         const workbook = xlsx.utils.book_new()
-        const ws = xlsx.utils.json_to_sheet(incomeStats)
+        const ws = xlsx.utils.json_to_sheet(updatedTasks)
         xlsx.utils.book_append_sheet(workbook, ws, "Results")
-        xlsx.writeFile(workbook, `${fileName}.xlsx`, {type: 'file'})
+        xlsx.writeFile(workbook, `ongoingTask.xlsx`, {type: 'file'})
     }
+
+    const generateComplete = () => {
+        const updatedTasks = tasks.filter((fil) => fil.status === 'complete').map(item => {
+            return {
+                id: item?.id,
+                status: item?.status,
+                title: item?.work_monitoring_task_id.title,
+                description:  item?.work_monitoring_task_id.description,
+                created_at: new Date(item?.work_monitoring_task_id?.created_at).toLocaleDateString(),
+                updated_at: new Date(item?.work_monitoring_task_id?.updated_at).toLocaleDateString()
+            }
+        })
+        const workbook = xlsx.utils.book_new()
+        const ws = xlsx.utils.json_to_sheet(updatedTasks)
+        xlsx.utils.book_append_sheet(workbook, ws, "Results")
+        xlsx.writeFile(workbook, `completedTask.xlsx`, {type: 'file'})
+    }
+
+    useEffect(() => {
+        dispatch(createWorkActions.setUserId(id))
+    }, [id])
+
+    useEffect(() => {
+        if (userId) {
+            dispatch(createWorkActions.getTaskData())
+        }
+    }, [userId])
 
     return <div>
         <div className='d-flex justify-content-between'>
-            <h1 className='f-Staatliches'>{location.state.data.name}'s: Tasks list</h1>
-            <button className='btn btn-outline-primary'>EMPLOYEE TASKS REPORT</button>
+            <h1 className='f-Staatliches'>{name}'s: Tasks list</h1>
+            <button
+              className='btn btn-outline-primary'
+              onClick={() => generateEmployeeTaskReport()}
+            >
+                EMPLOYEE TASKS REPORT
+            </button>
         </div>
         <Row className='mt-2'>
             <Col lg={4}>
@@ -43,25 +107,31 @@ const WorkMonitoringUnitView = () => {
                     <CardHeader className='font-bold text-medium text-white bg-gradient-primary align-items-center'>
                         <div className='w-100 d-flex justify-content-between'>
                             <p className='mt-1'>{'TODO'}</p>
-                            <button className='btn btn-primary'>{"TODO"} ITEMS REPORT</button>
+                            <button
+                              className='btn btn-primary'
+                              onClick={() => generateTodo()}
+                            >
+                                {"TODO"} ITEMS REPORT
+                            </button>
                         </div>
                     </CardHeader>
                     <CardBody className='pt-2'>
-                        <WorkMonitoringCard
-                            title="Build 10 lock bearers"
-                            description='Craft 10 lock bearers using the A-17 type cutter.
-                            All the bearers must be sealed. After finish crafting...'
-                            createdAt='2022/02/22'
-                            deadlineAt='2022/02/25'
-                        />
-
-                        <WorkMonitoringCard
-                            title="Craft safe door with FG-12 handle"
-                            description='Use the FG-12 door for the safe. Reason for use this type
-                            is because of its high level of...'
-                            createdAt='2022/02/22'
-                            deadlineAt='2022/02/27'
-                        />
+                        {
+                            tasks.map(item => {
+                                if (item.status === 'todo') {
+                                    return (
+                                      <WorkMonitoringCard
+                                        key={item.id}
+                                        id={item.id}
+                                        title={item?.work_monitoring_task_id?.title}
+                                        description={item?.work_monitoring_task_id?.description}
+                                        createdAt={new Date(item?.work_monitoring_task_id?.created_at).toLocaleDateString()}
+                                        deadlineAt={new Date(item?.work_monitoring_task_id?.updated_at).toLocaleDateString()}
+                                      />
+                                    )
+                                }
+                            })
+                        }
                     </CardBody>
                 </Card>
             </Col>
@@ -70,16 +140,31 @@ const WorkMonitoringUnitView = () => {
                     <CardHeader className='font-bold text-medium text-dark bg-gradient-warning'>
                         <div className='w-100 d-flex justify-content-between'>
                             <p className='mt-1'>ONGOING</p>
-                            <button className='btn btn-danger'>ONGOING ITEMS REPORT</button>
+                            <button
+                              className='btn btn-danger'
+                              onClick={() => generateOngoing()}
+                            >
+                                ONGOING ITEMS REPORT
+                            </button>
                         </div>
                     </CardHeader>
                     <CardBody className='pt-2'>
-                        <WorkMonitoringCard
-                            title="Polish all the safe doors"
-                            description='Black polish all the safe doors. Before polish them, first use a pressure gun to wash them'
-                            createdAt='2022/02/22'
-                            deadlineAt='2022/02/25'
-                        />
+                        {
+                            tasks.map(item => {
+                                if (item.status === 'ongoing') {
+                                    return (
+                                      <WorkMonitoringCard
+                                        key={item.id}
+                                        id={item.id}
+                                        title={item?.work_monitoring_task_id?.title}
+                                        description={item?.work_monitoring_task_id?.description}
+                                        createdAt={new Date(item?.work_monitoring_task_id?.created_at).toLocaleDateString()}
+                                        deadlineAt={new Date(item?.work_monitoring_task_id?.updated_at).toLocaleDateString()}
+                                      />
+                                    )
+                                }
+                            })
+                        }
                     </CardBody>
                 </Card>
             </Col>
@@ -87,15 +172,30 @@ const WorkMonitoringUnitView = () => {
                 <Card className='bg-light-grey'>
                     <CardHeader className='font-bold text-medium text-light bg-gradient-danger'>
                         <p className='mt-1'>FINISHED</p>
-                        <button className='btn btn-primary'>FINISHED ITEMS REPORT</button>
+                        <button
+                          className='btn btn-primary'
+                          onClick={() => generateComplete()}
+                        >
+                            FINISHED ITEMS REPORT
+                        </button>
                     </CardHeader>
                     <CardBody className='pt-2'>
-                        <WorkMonitoringCard
-                            title="Paint all the safe doors"
-                            description='After paint a door, make sure to polish with a shiner.'
-                            createdAt='2022/02/22'
-                            deadlineAt='2022/02/25'
-                        />
+                        {
+                            tasks.map(item => {
+                                if (item.status === 'complete') {
+                                    return (
+                                      <WorkMonitoringCard
+                                        key={item.id}
+                                        id={item.id}
+                                        title={item?.work_monitoring_task_id?.title}
+                                        description={item?.work_monitoring_task_id?.description}
+                                        createdAt={new Date(item?.work_monitoring_task_id?.created_at).toLocaleDateString()}
+                                        deadlineAt={new Date(item?.work_monitoring_task_id?.updated_at).toLocaleDateString()}
+                                      />
+                                    )
+                                }
+                            })
+                        }
                     </CardBody>
                 </Card>
             </Col>

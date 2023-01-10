@@ -9,6 +9,7 @@ import requestSagas from "../custom-views/StockRequestsView/sagas/requestSagas"
 import dashboardSagas from "../custom-views/dashboard/sagas/dashboardSagas"
 import incomeReportSagas from "../custom-views/IncomeReportView/sagas/incomeReportSagas"
 import inventoryTrackingSagas from "../custom-views/StockTrackingView/sagas/inventoryTrackingSagas"
+import createWorkSagas from "../custom-views/WorkCreateUnitView/sagas/createWorkSagas"
 
 export default function* rootSaga() {
     yield spawn(authenticationSagas)
@@ -21,4 +22,5 @@ export default function* rootSaga() {
     yield spawn(dashboardSagas)
     yield spawn(incomeReportSagas)
     yield spawn(inventoryTrackingSagas)
+    yield spawn(createWorkSagas)
 }

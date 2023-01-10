@@ -1,10 +1,16 @@
 import {Badge, Card, CardBody, CardFooter, Col, Modal, ModalBody, ModalHeader, Row} from "reactstrap"
 import {useState} from "react"
 import InventorManagementTable from "./table/table/InventoryManagementTable"
+import {useDispatch} from "react-redux"
+import {createWorkActions} from "../../custom-views/WorkCreateUnitView/slice/createWorkSlice"
 
-const WorkMonitoringCard = ({title, description, createdAt, deadlineAt}) => {
-
+const WorkMonitoringCard = ({title, description, createdAt, deadlineAt, id}) => {
+    const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
+
+    const changeState = (state) => {
+        dispatch(createWorkActions.changeTaskStatus({state, id}))
+    }
 
     return <Card className='clickable-mini'>
         <CardBody onClick={() => setOpen(!open)}>
@@ -16,9 +22,9 @@ const WorkMonitoringCard = ({title, description, createdAt, deadlineAt}) => {
             <p className=''>{description}</p>
         </CardBody>
         <CardFooter className='d-flex justify-content-end gap-1'>
-            <Badge color='light-primary clickable'>TODO</Badge>
-            <Badge color='light-warning clickable'>ONGOING</Badge>
-            <Badge color='light-success clickable'>FINISHED</Badge>
+            <Badge color='light-primary clickable' onClick={() => changeState(0)}>TODO</Badge>
+            <Badge color='light-warning clickable' onClick={() => changeState(1)}>ONGOING</Badge>
+            <Badge color='light-success clickable' onClick={() => changeState(2)}>FINISHED</Badge>
         </CardFooter>
 
         {/*---------------------*/}
