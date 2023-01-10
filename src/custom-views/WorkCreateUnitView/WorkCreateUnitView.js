@@ -58,7 +58,7 @@ const WorkCreateUnitView = () => {
 
     const handleSubmit = () => {
         const items = workItems.map(item => {
-            return {item: item.id, quantity: Number(item.quantity)}
+            return {item_id: item.id, quantity: Number(item.quantity)}
         })
 
         dispatch(createWorkActions.createTask({

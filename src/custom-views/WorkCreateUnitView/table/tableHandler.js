@@ -41,7 +41,7 @@ export const workItemsTableHandler = () => {
             sortable: true,
             minWidth: '100px',
             selector: row => {
-                return row.track_level
+                return row.critical_level
             }
         },
         {
