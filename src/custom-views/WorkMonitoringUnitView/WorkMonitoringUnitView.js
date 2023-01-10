@@ -123,6 +123,7 @@ const WorkMonitoringUnitView = () => {
                                       <WorkMonitoringCard
                                         key={item.id}
                                         id={item.id}
+                                        status={item?.status}
                                         title={item?.work_monitoring_task_id?.title}
                                         description={item?.work_monitoring_task_id?.description}
                                         createdAt={new Date(item?.work_monitoring_task_id?.created_at).toLocaleDateString()}
@@ -156,6 +157,7 @@ const WorkMonitoringUnitView = () => {
                                       <WorkMonitoringCard
                                         key={item.id}
                                         id={item.id}
+                                        status={item?.status}
                                         title={item?.work_monitoring_task_id?.title}
                                         description={item?.work_monitoring_task_id?.description}
                                         createdAt={new Date(item?.work_monitoring_task_id?.created_at).toLocaleDateString()}
@@ -187,6 +189,7 @@ const WorkMonitoringUnitView = () => {
                                       <WorkMonitoringCard
                                         key={item.id}
                                         id={item.id}
+                                        status={item?.status}
                                         title={item?.work_monitoring_task_id?.title}
                                         description={item?.work_monitoring_task_id?.description}
                                         createdAt={new Date(item?.work_monitoring_task_id?.created_at).toLocaleDateString()}
