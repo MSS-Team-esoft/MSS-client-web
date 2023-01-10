@@ -21,7 +21,7 @@ export const inventoryTableHandler = () => {
             sortable: true,
             minWidth: '100px',
             selector: row => {
-                return `${row?.quantity} ${row?.unit}`
+                return `${row?.quantity}`
             }
         }
     ]

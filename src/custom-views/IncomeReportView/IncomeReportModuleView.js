@@ -143,7 +143,7 @@ const IncomeReportModuleView = () => {
             </CardBody>
         </Card>
         <Card className='mt-2'>
-            <CardHeader className='f-Staatliches font-large-1'>INCOME CHART IN LAST 10 MONTHS</CardHeader>
+            <CardHeader className='f-Staatliches font-large-1'>INCOME MOVEMENT CHART</CardHeader>
             <IncomeReportChart />
         </Card>
     </div>
