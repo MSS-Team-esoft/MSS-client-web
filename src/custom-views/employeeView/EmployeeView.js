@@ -10,6 +10,7 @@ import {
 import {useEffect, useState} from "react"
 import Select from "react-select"
 import * as xlsx from "sheetjs-style"
+import axios from "../../axios/axios"
 
 const EmployeeView = () => {
     const dispatch = useDispatch()
@@ -70,6 +71,25 @@ const EmployeeView = () => {
         const ws = xlsx.utils.json_to_sheet(employees)
         xlsx.utils.book_append_sheet(workbook, ws, "Results")
         xlsx.writeFile(workbook, `${fileName}.xlsx`, {type: 'file'})
+    }
+
+    const generateGenderReport = (gender) => {
+        axios.get(`/employee/gender/${gender}`).then(r => {
+            const workbook = xlsx.utils.book_new()
+            const ws = xlsx.utils.json_to_sheet(r.data)
+            xlsx.utils.book_append_sheet(workbook, ws, "Results")
+            xlsx.writeFile(workbook, `genderReport.xlsx`, {type: 'file'})
+        })
+    }
+
+    const generateRoleReport = (role) => {
+        axios.get(`/employee/role/${role}`).then(r => {
+            const workbook = xlsx.utils.book_new()
+            const ws = xlsx.utils.json_to_sheet(r.data)
+            xlsx.utils.book_append_sheet(workbook, ws, "Results")
+            xlsx.writeFile(workbook, `roleReport.xlsx`, {type: 'file'})
+        })
+
     }
 
     return <div>
@@ -180,16 +200,36 @@ const EmployeeView = () => {
         </Card>
         <div className='d-flex gap-1 w-100 justify-content-end'>
             <div>
-                <button className='btn btn-gradient-primary f-Staatliches font-medium-5'>Male employees Report</button>
+                <button
+                    className='btn btn-gradient-primary f-Staatliches font-medium-5'
+                    onClick={() => generateGenderReport('male')}
+                >
+                    Male employees Report
+                </button>
             </div>
             <div>
-                <button className='btn btn-gradient-success f-Staatliches font-medium-5'>Female employees Report</button>
+                <button
+                    className='btn btn-gradient-success f-Staatliches font-medium-5'
+                    onClick={() => generateGenderReport('female')}
+                >
+                    Female employees Report
+                </button>
             </div>
             <div>
-                <button className='btn btn-gradient-danger f-Staatliches font-medium-5'>Admin employees Report</button>
+                <button
+                    className='btn btn-gradient-danger f-Staatliches font-medium-5'
+                    onClick={() => generateRoleReport('admin')}
+                >
+                    Admin employees Report
+                </button>
             </div>
             <div>
-                <button className='btn btn-gradient-warning f-Staatliches font-medium-5'>Supervisor employees Report</button>
+                <button
+                    className='btn btn-gradient-warning f-Staatliches font-medium-5'
+                    onClick={() => generateRoleReport('employee')}
+                >
+                    Supervisor employees Report
+                </button>
             </div>
         </div>
         <Card className='mt-2'>

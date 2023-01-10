@@ -77,6 +77,14 @@ const Dashboard = () => {
         xlsx.writeFile(workbook, `${fileName}.xlsx`, {type: 'file'})
     }
 
+    const generateItems = (fileName) => {
+        const workbook = xlsx.utils.book_new()
+        const ws = xlsx.utils.json_to_sheet(goodItems)
+        xlsx.utils.book_append_sheet(workbook, ws, "Results")
+        xlsx.writeFile(workbook, `${fileName}.xlsx`, {type: 'file'})
+    }
+
+
     return <div>
         <h1 className='f-Staatliches mb-2'>Inventory Section</h1>
         <Row>
@@ -87,7 +95,7 @@ const Dashboard = () => {
                             <BarChart data={[
                                 {
                                     name: "Track level",
-                                    good: goodItems.length,
+                                    good: goodItems.length - (warningItems.length + criticalItems.length),
                                     warning: warningItems.length,
                                     critical: criticalItems.length
                                 }
@@ -116,7 +124,7 @@ const Dashboard = () => {
                                     <Check size={100} color='rgba(46, 213, 115,1.0)'/>
                                 </div>
                                 <div>
-                                    <b className='text-large text-success'>{goodItems.length} ITEM(S)</b>
+                                    <b className='text-large text-success'>{goodItems.length  - (warningItems.length + criticalItems.length)} ITEM(S)</b>
                                 </div>
                             </CardBody>
                             <CardFooter onClick={() => setGoodOpen(!goodOpen)} className='d-center'>
@@ -163,10 +171,12 @@ const Dashboard = () => {
         </Row>
         <Row className='d-flex align-items-baseline'>
             <Col lg={3}>
-                <Card className='btn'>
+                <Card
+                    onClick={() => generateItems('this month added stocks')}
+                    className='btn'>
                     <CardBody className='d-center align-items-baseline'>
                         <p className='text-medium m-0 p-0'>This month items:</p>
-                        <h4 className='ml-2 mb-0 p-0 font-bold'>12 items</h4>
+                        <h4 className='ml-2 mb-0 p-0 font-bold'>{goodItems.length}</h4>
                     </CardBody>
                 </Card>
             </Col>
