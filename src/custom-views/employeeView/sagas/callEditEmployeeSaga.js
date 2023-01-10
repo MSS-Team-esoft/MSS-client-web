@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {call, put, select} from "redux-saga/effects"
 import axios from "../../../axios/axios"
 import {employeeActions, selectEmployeeCurrentlyEditingData} from "../slice/employeeSlice"
@@ -10,7 +11,7 @@ const editEmployeeAsync = async (data, id) => {
 export default function* callEditEmployeeSaga({payload}) {
   const editing = yield select(selectEmployeeCurrentlyEditingData)
   try {
-    yield call(editEmployeeAsync(), payload, editing.id)
+    yield call(editEmployeeAsync, payload, editing.id)
     yield put(employeeActions.editEmployeeSuccess())
     successMessage('Edit success!')
   } catch (e) {

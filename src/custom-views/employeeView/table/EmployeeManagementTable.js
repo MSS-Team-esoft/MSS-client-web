@@ -1,4 +1,4 @@
-import {forwardRef, Fragment, useState} from 'react'
+import {forwardRef, Fragment, useEffect, useState} from 'react'
 import DataTable from 'react-data-table-component'
 import {ChevronDown} from 'react-feather'
 import ReactPaginate from 'react-paginate'
@@ -25,12 +25,24 @@ const EmployeeManagementTable = () => {
     const [currentPage, setCurrentPage] = useState(0)
     const [searchValue] = useState('')
     const [filteredData] = useState([])
+    const [filteredEmployees, setFilteredEmployees] = useState([])
     const employees = useSelector(selectEmployees)
 
     // ** Function to handle Pagination
     const handlePagination = page => {
         setCurrentPage(page.selected)
     }
+
+    useEffect(() => {
+        if (employees) {
+            const temp = employees.map(item => {
+                if (item.status === 'active') {
+                    return item
+                }
+            })
+            setFilteredEmployees(temp)
+        }
+    }, [employees])
 
     // ** Custom Pagination
     const CustomPagination = () => (
@@ -70,7 +82,7 @@ const EmployeeManagementTable = () => {
                         sortIcon={<ChevronDown size={10}/>}
                         paginationDefaultPage={currentPage + 1}
                         paginationComponent={CustomPagination}
-                        data={employees}
+                        data={filteredEmployees}
                         onSelectedRowsChange={onChangeHandle}
                     />
                 </div>

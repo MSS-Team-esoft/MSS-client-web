@@ -60,7 +60,7 @@ const EmployeeView = () => {
                     role
                 }))
             } else {
-                dispatch(employeeActions.editEmployee(values))
+                dispatch(employeeActions.editEmployee({...values, role}))
             }
         }
     })

@@ -4,12 +4,12 @@ import {employeeActions} from "../slice/employeeSlice"
 import {errorMessage, successMessage} from "../../../utility/alerts"
 
 const deleteEmployeeAsync = async (id) => {
-  return axios.delete(`/employee/delete/${id}`).then(res => res.data)
+  return axios.delete(`/employee/${id}`, {data: {status: true}}).then(res => res.data)
 }
 
 export default function* callDeleteEmployeeSaga({payload}) {
   try {
-    yield call(deleteEmployeeAsync(), payload.id)
+    yield call(deleteEmployeeAsync, payload.id)
     yield put(employeeActions.deleteEmployeeSuccess())
     successMessage('Delete success!')
   } catch (e) {
