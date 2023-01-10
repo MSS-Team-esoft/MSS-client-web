@@ -3,20 +3,30 @@ import WorkshopManagementTable from "./table/WorkshopManagementTable"
 import {useFormik} from "formik"
 import {
     selectWorkshopCurrentlyEditing,
-    selectWorkshopCurrentlyEditingData,
+    selectWorkshopCurrentlyEditingData, selectWorkshops,
     workshopActions
 } from "./slice/workshopSlice"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect} from "react"
+import * as xlsx from "sheetjs-style"
 
 const ManageWorkshopView = () => {
     const dispatch = useDispatch()
 const currentlyEditing = useSelector(selectWorkshopCurrentlyEditing)
     const currentlyEditingData = useSelector(selectWorkshopCurrentlyEditingData)
 
+    const workshops = useSelector(selectWorkshops)
+
     useEffect(() => {
         dispatch(workshopActions.getWorkshops())
     }, [dispatch])
+
+    const generateWorkshopReport = (fileName) => {
+        const workbook = xlsx.utils.book_new()
+        const ws = xlsx.utils.json_to_sheet(workshops)
+        xlsx.utils.book_append_sheet(workbook, ws, "Results")
+        xlsx.writeFile(workbook, `${fileName}.xlsx`, {type: 'file'})
+    }
 
     const formik = useFormik({
         enableReinitialize: true,
@@ -36,7 +46,10 @@ const currentlyEditing = useSelector(selectWorkshopCurrentlyEditing)
     return <div>
         <Card>
             <CardHeader className='p-1 m-0 bg-gradient-primary font-large-1 f-Staatliches'>
-                Manage Workshops
+                <div className='d-flex w-100 justify-content-between align-items-center'>
+                    <p className='m-0 p-0 font-large-1 f-Staatliches'>Workshops</p>
+                    <button onClick={() => generateWorkshopReport("workshop-report")} className='font-medium-1 btn btn-light'>Workshop report</button>
+                </div>
             </CardHeader>
             <CardBody className='pt-2'>
                 <Form onSubmit={formik.handleSubmit}>

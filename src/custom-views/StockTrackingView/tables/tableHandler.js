@@ -3,12 +3,12 @@ import {Badge} from "reactstrap"
 export const trackingTableHandler = () => {
 
     const handleTrackState = (qty, warning, crit) => {
-
         if (qty > warning) return <Badge color='light-success'>good</Badge>
         else if (qty <= warning && qty > crit) return <Badge color='light-warning'>warning</Badge>
 
         return <Badge color='light-danger'>critical</Badge>
     }
+
 
     return  [
         {
@@ -32,7 +32,7 @@ export const trackingTableHandler = () => {
             sortable: true,
             minWidth: '100px',
             selector: row => {
-                return `${row?.quantity} ${row?.unit}`
+                return row?.quantity
             }
         },
         {
@@ -40,7 +40,7 @@ export const trackingTableHandler = () => {
             sortable: true,
             minWidth: '100px',
             selector: row => {
-                return row.track_level
+                return row.critical_level
             }
         },
         {
@@ -56,7 +56,7 @@ export const trackingTableHandler = () => {
             sortable: true,
             minWidth: '100px',
             selector: (row) => {
-                return handleTrackState(row?.quantity, row.warning_level, row.track_level)
+                return handleTrackState(parseInt(row?.quantity), parseInt(row.warning_level), parseInt(row.critical_level))
             }
         }
     ]

@@ -12,7 +12,7 @@ import {createWorkActions, selectWorkers} from "./slice/createWorkSlice"
 
 const sheet = {
     effBanner: {
-        backgroundColor: 'rgba(255, 121, 121, 0.2)',
+        backgroundColor: 'rgba(252,221,99,0.3)',
         borderRadius: 5,
         padding: 10
     }
@@ -131,9 +131,9 @@ const WorkCreateUnitView = () => {
                     />
                 </Col>
 
-                <Col className='d-flex align-items-end'>
+                {worker && <Col className='d-flex align-items-end'>
                     <button onClick={() => setOpen(!open)} className='btn btn-danger'>STATS</button>
-                </Col>
+                </Col>}
             </Row>
             <Row className='mt-5'>
                 <h3 className='f-Staatliches'>Add items for the task</h3>
@@ -196,7 +196,7 @@ const WorkCreateUnitView = () => {
                         }}/>
                         <h6>Works Assigned</h6>
                     </div>
-                    <h4>08</h4>
+                    <h4>03</h4>
                 </div>
 
                 <div className='d-flex justify-content-between mt-1'>
@@ -206,7 +206,7 @@ const WorkCreateUnitView = () => {
                         }}/>
                         <h6>Works Ongoing</h6>
                     </div>
-                    <h4>10</h4>
+                    <h4>01</h4>
                 </div>
 
                 <div className='d-flex justify-content-between mt-1'>
@@ -216,12 +216,12 @@ const WorkCreateUnitView = () => {
                         }}/>
                         <h6>Total Works Done</h6>
                     </div>
-                    <h4>12</h4>
+                    <h4>01</h4>
                 </div>
 
-                <div style={sheet.effBanner} className='d-flex justify-content-between mt-1 f-Staatliches'>
+                <div style={sheet.effBanner} className='d-flex justify-content-between align-items-center mt-1 f-Staatliches'>
                     <h3 className='m-0 p-0'>Work Efficiency</h3>
-                    <h1 className='m-0 p-0'>23.4 %</h1>
+                    <h1 className='m-0 p-0'>33.33 %</h1>
                 </div>
                 <p className='text-grey text-small' style={{
                     marginTop: 5

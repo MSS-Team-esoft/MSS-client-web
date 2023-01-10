@@ -33,7 +33,7 @@ export const workItemsTableHandler = () => {
             sortable: true,
             minWidth: '100px',
             selector: row => {
-                return `${row?.quantity} ${row?.unit}`
+                return `${row?.quantity}`
             }
         },
         {
@@ -57,7 +57,7 @@ export const workItemsTableHandler = () => {
             sortable: true,
             minWidth: '100px',
             selector: (row) => {
-                return handleTrackState(row?.quantity, row.warning_level, row.track_level)
+                return handleTrackState(parseInt(row?.quantity), parseInt(row.warning_level), parseInt(row.critical_level))
             }
         },
         {

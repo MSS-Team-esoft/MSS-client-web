@@ -5,15 +5,20 @@ import {useDispatch, useSelector} from "react-redux"
 import {
     employeeActions,
     selectEmployeeCurrentlyEditing,
-    selectEmployeeCurrentlyEditingData
+    selectEmployeeCurrentlyEditingData, selectEmployees
 } from "./slice/employeeSlice"
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
 import Select from "react-select"
+import * as xlsx from "sheetjs-style"
 
 const EmployeeView = () => {
     const dispatch = useDispatch()
     const currentlyEditing = useSelector(selectEmployeeCurrentlyEditing)
     const currentlyEditingData = useSelector(selectEmployeeCurrentlyEditingData)
+
+    const [role, setRole] = useState('employe')
+
+    const employees = useSelector(selectEmployees)
 
     useEffect(() => {
         dispatch(employeeActions.getEmployees())
@@ -45,21 +50,37 @@ const EmployeeView = () => {
             gender: currentlyEditing ? currentlyEditingData.gender : '',
             dob: currentlyEditing ? currentlyEditingData.dob : '',
             address: currentlyEditing ? currentlyEditingData.address : '',
-            telNo: currentlyEditing ? currentlyEditingData.telephone_number : ''
+            telephone_number: currentlyEditing ? currentlyEditingData.telephone_number : '',
+            email: currentlyEditing ? currentlyEditingData.email : ''
         },
         onSubmit: (values) => {
             if (!currentlyEditing) {
-                dispatch(employeeActions.addEmployee(values))
+                dispatch(employeeActions.addEmployee({
+                    ...values,
+                    role
+                }))
             } else {
                 dispatch(employeeActions.editEmployee(values))
             }
         }
     })
 
+    const generateEmployeeReport = (fileName) => {
+        const workbook = xlsx.utils.book_new()
+        const ws = xlsx.utils.json_to_sheet(employees)
+        xlsx.utils.book_append_sheet(workbook, ws, "Results")
+        xlsx.writeFile(workbook, `${fileName}.xlsx`, {type: 'file'})
+    }
+
     return <div>
         <Card>
             <CardHeader className='p-1 m-0 bg-gradient-primary font-large-1 f-Staatliches'>
-                Manage Employees
+                <div className='d-flex w-100 justify-content-between align-items-center'>
+                    <p className='m-0 p-0 font-large-1 f-Staatliches'>Manage Employees</p>
+                    <button onClick={() => generateEmployeeReport("employee-all-report")} className='font-medium-1 btn btn-light'>
+                        Employee report
+                    </button>
+                </div>
             </CardHeader>
             <CardBody className='pt-2'>
                 <Form onSubmit={formik.handleSubmit}>
@@ -83,17 +104,19 @@ const EmployeeView = () => {
                                 type='date' id='dob' placeholder='Enter description'/>
                         </Col>
                         <Col lg={2}>
-                            <Label htmlFor='telNo' className='text-small-extra'>telephone no.</Label>
+                            <Label htmlFor='telephone_number' className='text-small-extra'>telephone no.</Label>
                             <Input
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                value={formik.values.telNo}
-                                name='telNo'
-                                type='tel' id='telNo' placeholder='Your telephone number'/>
+                                value={formik.values.telephone_number}
+                                name='telephone_number'
+                                type='tel' id='telephone_number' placeholder='Your telephone number'/>
                         </Col>
                         <Col lg={3}>
                             <Label htmlFor='role' className='text-small-extra'>Add role</Label>
-                            <Select id='role' options={options}/>
+                            <Select
+                                onChange={e => setRole(e.value)}
+                                id='role' options={options}/>
                         </Col>
                     </Row>
                     <Row className='mt-4'>
@@ -107,7 +130,18 @@ const EmployeeView = () => {
                                 type='textarea' id='address'/>
                         </Col>
                     </Row>
-                    <Row className='mt-4'>
+                    <div className='mt-4 d-flex align-items-end gap-3'>
+                        <Col lg={3}>
+                            <Label
+                                htmlFor='email' className='text-small-extra'>Email</Label>
+                            <Input
+                                placeholder='demo@example.com'
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.email}
+                                name='email'
+                                id='email'/>
+                        </Col>
                         <Col lg={1}>
                             <Input
                                 checked={formik.values.gender === 'male'}
@@ -124,7 +158,7 @@ const EmployeeView = () => {
                                 name='gender' id='female' value="female" type='radio'/>
                             <Label htmlFor='female' className='text-small-extra ml-1'>Female</Label>
                         </Col>
-                    </Row>
+                    </div>
                     <div className='w-100 mt-2 d-flex justify-content-end'>
                         {
                             currentlyEditing &&
@@ -144,6 +178,20 @@ const EmployeeView = () => {
                 </Form>
             </CardBody>
         </Card>
+        <div className='d-flex gap-1 w-100 justify-content-end'>
+            <div>
+                <button className='btn btn-gradient-primary f-Staatliches font-medium-5'>Male employees Report</button>
+            </div>
+            <div>
+                <button className='btn btn-gradient-success f-Staatliches font-medium-5'>Female employees Report</button>
+            </div>
+            <div>
+                <button className='btn btn-gradient-danger f-Staatliches font-medium-5'>Admin employees Report</button>
+            </div>
+            <div>
+                <button className='btn btn-gradient-warning f-Staatliches font-medium-5'>Supervisor employees Report</button>
+            </div>
+        </div>
         <Card className='mt-2'>
             <CardHeader className='p-1 m-0 font-large-1 f-Staatliches'>
                 EMPLOYEES

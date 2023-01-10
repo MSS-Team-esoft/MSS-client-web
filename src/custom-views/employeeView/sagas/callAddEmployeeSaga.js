@@ -8,9 +8,11 @@ const addEmployeeAsync = async (data) => {
 }
 
 export default function* callAddEmployeeSaga({payload}) {
+  console.log(payload)
   try {
-    yield call(addEmployeeAsync(), payload)
+    yield call(addEmployeeAsync, payload)
     yield put(employeeActions.addEmployeeSuccess())
+    yield put(employeeActions.getEmployees())
     successMessage('Create success!')
   } catch (e) {
     console.error(e)

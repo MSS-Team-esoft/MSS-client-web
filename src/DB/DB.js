@@ -97,3 +97,14 @@ export const EMPLOYEE_DROP_DOWN = [
         value: 'units'
     }
 ]
+
+export const TODO_TASKS_DB = [
+    {
+        id: 1,
+        title: '10 safe barrels',
+        description: 'You have to create 10 safe barrels. And after you created an each barrel make sure they all are furnished well.',
+        createdAt: '2023-01-10T02:02:00.544Z',
+        deadlineAt: '2023-01-10T02:02:00.544Z',
+        status: 1
+    }
+]

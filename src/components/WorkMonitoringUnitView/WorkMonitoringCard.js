@@ -4,7 +4,7 @@ import InventorManagementTable from "./table/table/InventoryManagementTable"
 import {useDispatch} from "react-redux"
 import {createWorkActions} from "../../custom-views/WorkCreateUnitView/slice/createWorkSlice"
 
-const WorkMonitoringCard = ({title, description, createdAt, deadlineAt, id, status}) => {
+const WorkMonitoringCard = ({title, description, createdAt, deadlineAt, id, status, items}) => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
 
@@ -43,13 +43,21 @@ const WorkMonitoringCard = ({title, description, createdAt, deadlineAt, id, stat
                         <h3>{title}</h3>
                     </Col>
                     <Col lg={2} className='d-flex justify-content-center align-items-baseline'>
-                        <Badge color='light-primary clickable text-uppercase'>{status}</Badge>
+                        {
+                            status === 'todo' && <Badge color='light-primary clickable text-uppercase'>{status}</Badge>
+                        }
+                        {
+                            status === 'ongoing' && <Badge color='light-warning clickable text-uppercase'>{status}</Badge>
+                        }
+                        {
+                            status === 'complete' && <Badge color='light-danger clickable text-uppercase'>{status}</Badge>
+                        }
                     </Col>
                 </Row>
                 <p className='mt-2'>{description}</p>
                 <h4 className='text-medium text-decoration-underline mt-3'>Assigned Materials</h4>
                 <div className='mt-2'>
-                    <InventorManagementTable />
+                    <InventorManagementTable data={items}/>
                 </div>
             </ModalBody>
         </Modal>

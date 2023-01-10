@@ -128,6 +128,7 @@ const WorkMonitoringUnitView = () => {
                                         description={item?.work_monitoring_task_id?.description}
                                         createdAt={new Date(item?.work_monitoring_task_id?.created_at).toLocaleDateString()}
                                         deadlineAt={new Date(item?.work_monitoring_task_id?.updated_at).toLocaleDateString()}
+                                        items={[item?.work_monitoring_task_items_id?.item_id]}
                                       />
                                     )
                                 }
