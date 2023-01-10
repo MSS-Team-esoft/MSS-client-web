@@ -31,6 +31,14 @@ export const workshopTableHandler = () => {
             }
         },
         {
+            name: 'STATUS',
+            sortable: true,
+            minWidth: '100px',
+            selector: row => {
+                return row.status
+            }
+        },
+        {
             name: 'ACTIONS',
             sortable: true,
             minWidth: '100px',
