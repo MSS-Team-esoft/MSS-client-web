@@ -48,14 +48,18 @@ const currentlyEditing = useSelector(selectWorkshopCurrentlyEditing)
             <CardHeader className='p-1 m-0 bg-gradient-primary font-large-1 f-Staatliches'>
                 <div className='d-flex w-100 justify-content-between align-items-center'>
                     <p className='m-0 p-0 font-large-1 f-Staatliches'>Workshops</p>
-                    <button onClick={() => generateWorkshopReport("workshop-report")} className='font-medium-1 btn btn-light'>Workshop report</button>
+                    <div className='d-flex gap-1'>
+                        <button onClick={() => generateWorkshopReport("workshop-report")} className='font-medium-1 btn btn-light'>Workshop report</button>
+                        <button onClick={() => generateWorkshopReport("workshop-report")} className='font-medium-1 btn btn-light'>Active Workshops report</button>
+                        <button onClick={() => generateWorkshopReport("workshop-report")} className='font-medium-1 btn btn-light'>Inactive Workshops report</button>
+                    </div>
                 </div>
             </CardHeader>
             <CardBody className='pt-2'>
                 <Form onSubmit={formik.handleSubmit}>
                     <Row>
                         <Col lg={4}>
-                            <Label htmlFor='name' className='text-small-extra'>Division Name</Label>
+                            <Label htmlFor='name' className='text-small-extra'>Workshop Name</Label>
                             <Input
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}

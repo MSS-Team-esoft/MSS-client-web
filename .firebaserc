@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "talent-zea-admin"
-  }
+    "default": "mss-lock-hood-13",
+    "host": "mss-lock-hood-13"
+  },
+  "targets": {},
+  "etags": {}
 }
